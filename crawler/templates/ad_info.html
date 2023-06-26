@@ -1,0 +1,233 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Scraper | Ad info</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="ads" class="nav-link">Home</a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <!-- Messages Dropdown Menu -->
+      
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="dashboard" class="brand-link">
+      <img src="{% static 'dist/img/AdminLTELogo.png' %}"
+           alt="AdminLTE Logo"
+           class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">Scraper | ads</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">Dylan Paleilei</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item has-treeview">
+            <a href="dashboard" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            
+          </li>
+          
+          
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Ad-info</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Ad-info</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card card-solid">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-sm-6">
+              <h3 class="d-inline-block d-sm-none">Ad title</h3>
+              <div class="col-12">
+                <!-- Use the ad_info data to populate the ad image -->
+                <img src="{{ ad_info.screenshot }}" class="product-image" alt="ad image">
+              </div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <h3 class="my-3">{{ ad_info.ad_title }}</h3>
+              <p>{{ ad_info.ad_description }}</p>
+
+              <hr>
+              <h4>Disposition</h4>
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-default text-center active">
+                  <input type="radio" name="color_option" id="color_option1" autocomplete="off" checked="">
+                  Not booked
+                  <br>
+                  <i class="fas fa-circle fa-2x text-green"></i>
+                </label>
+                <label class="btn btn-default text-center">
+                  <input type="radio" name="color_option" id="color_option2" autocomplete="off">
+                  no answer
+                  <br>
+                  <i class="fas fa-circle fa-2x text-blue"></i>
+                </label>
+                <label class="btn btn-default text-center">
+                  <input type="radio" name="color_option" id="color_option3" autocomplete="off">
+                  appointment taken
+                  <br>
+                  <i class="fas fa-circle fa-2x text-purple"></i>
+                </label>
+                <label class="btn btn-default text-center">
+                  <input type="radio" name="color_option" id="color_option4" autocomplete="off">
+                  appoinment canceled
+                  <br>
+                  <i class="fas fa-circle fa-2x text-red"></i>
+                </label>
+                <label class="btn btn-default text-center">
+                  <input type="radio" name="color_option" id="color_option5" autocomplete="off">
+                  booked
+                  <br>
+                  <i class="fas fa-circle fa-2x text-orange"></i>
+                </label>
+              </div>
+
+              <h4 class="mt-0"> <a href="{{ ad_info.ad_url }}">
+                <small>URL: {{ ad_info.ad_url }}</small></a>
+              </h4>
+              
+
+              <div class="bg-gray py-2 px-3 mt-4">
+                <h2 class="mb-0">
+                  {{ ad_info.query }}
+                </h2>
+              </div>
+
+              <h4>Contact: {{ ad_info.company_contact_number }}</h4>
+              <h4>Company Representative: {{ ad_info.company_board_member }}</h4>
+
+
+              <div class="mt-4">
+                <div class="btn btn-primary btn-lg btn-flat">
+                  <i class="fas fa-cart-plus fa-lg mr-2"></i> 
+                  button to previous ad
+                </div>
+
+                <div class="btn btn-default btn-lg btn-flat">
+                  <i class="fas fa-heart fa-lg mr-2"></i> 
+                  button to next ad
+                </div>
+              </div>
+            
+            </div>
+          </div>
+          <div class="row mt-4">
+            <nav class="w-100">
+              <div class="nav nav-tabs" id="product-tab" role="tablist">
+                <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Notes</a>
+              </div>
+            </nav>
+            <div class="tab-content p-3" id="nav-tabContent">
+              <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">This is the editable note coming from database </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2024 <a href="#">Dylan paleilei</a>.</strong> All rights
+    reserved.
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'dist/js/demo.js' %}"></script>
+</body>
+</html>
