@@ -53,16 +53,6 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user (optional) -->
-      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Dylan Paleilei</a>
-        </div>
-      </div> -->
-
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -146,38 +136,26 @@
 
               <hr>
               <h4>Disposition</h4>
-              <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <label class="btn btn-default text-center active">
-                  <input type="radio" name="color_option" id="color_option1" autocomplete="off" checked="">
-                  Not booked
-                  <br>
-                  <i class="fas fa-circle fa-2x text-green"></i>
-                </label>
-                <label class="btn btn-default text-center">
-                  <input type="radio" name="color_option" id="color_option2" autocomplete="off">
-                  no answer
-                  <br>
-                  <i class="fas fa-circle fa-2x text-blue"></i>
-                </label>
-                <label class="btn btn-default text-center">
-                  <input type="radio" name="color_option" id="color_option3" autocomplete="off">
-                  appointment taken
-                  <br>
-                  <i class="fas fa-circle fa-2x text-purple"></i>
-                </label>
-                <label class="btn btn-default text-center">
-                  <input type="radio" name="color_option" id="color_option4" autocomplete="off">
-                  appoinment canceled
-                  <br>
-                  <i class="fas fa-circle fa-2x text-red"></i>
-                </label>
-                <label class="btn btn-default text-center">
-                  <input type="radio" name="color_option" id="color_option5" autocomplete="off">
-                  booked
-                  <br>
-                  <i class="fas fa-circle fa-2x text-orange"></i>
-                </label>
-              </div>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-default text-center active" onclick="selectDisposition('Not booked')">
+                <input type="radio" name="color_option" id="color_option1" autocomplete="off" checked>
+                No Answer
+                <br>
+                <i class="fas fa-circle fa-2x text-green"></i>
+              </label>
+              <label class="btn btn-default text-center" onclick="selectDisposition('No answer')">
+                <input type="radio" name="color_option" id="color_option2" autocomplete="off">
+                Not Interested
+                <br>
+                <i class="fas fa-circle fa-2x text-blue"></i>
+              </label>
+              <label class="btn btn-default text-center" onclick="selectDisposition('Appointment taken')">
+                <input type="radio" name="color_option" id="color_option3" autocomplete="off">
+                Booked appointment
+                <br>
+                <i class="fas fa-circle fa-2x text-purple"></i>
+              </label>
+            </div>
 
               <h4 class="mt-0"> <a href="{{ ad_info.ad_url }}">
                 <small>URL: {{ ad_info.ad_url }}</small></a>
@@ -194,16 +172,15 @@
               <h4>Company Representative: {{ ad_info.company_board_member }}</h4>
 
               <div class="mt-4">
-                <div class="btn btn-default btn-lg btn-flat">
+                <div class="btn btn-default btn-lg btn-flat" id="previousAdButton">
                   <i class="fas fa-angle-left fa-lg mr-2"></i> 
                   Previous ad
                 </div>
-                <div class="btn btn-primary btn-lg btn-flat">
+                <div class="btn btn-primary btn-lg btn-flat" id="nextAdButton">
                   Next ad
                   <i class="fas fa-angle-right fa-lg mr-2"></i>
                 </div>
               </div>
-              
                 
             
             </div>
@@ -224,8 +201,7 @@
                     {% csrf_token %}
                     <div class="form-group">
                       <label for="noteInput">Add a note:</label>
-                      <textarea class="form-control" id="noteInput" rows="5">
-                        {{ ad_info.notes }}
+                      <textarea class="form-control" id="noteInput" rows="5">{{ ad_info.notes }}
                       </textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Save Note</button>

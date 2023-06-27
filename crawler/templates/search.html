@@ -10,113 +10,100 @@
     <link rel="stylesheet" href="{% static 'search.css' %}">
     <title>Scraper | search page</title>
   <style>
-    .loader {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 9999;
-    }
+    .keyword-item {
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+  }
 
-    .loader .loader-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #fff;
-      font-size: 20px;
-    }
-
-    .loader .loader-spinner {
-      margin-bottom: 16px;
-      /* Add your loader animation styles here */
-    }
-
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 16px;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      z-index: 9999;
-    }
+  .remove-button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 5px;
+    font-size: 14px;
+    color: #9B9B9B;
+    cursor: pointer;
+  }
   </style>
   <script>
-    window.addEventListener('DOMContentLoaded', function() {
-      var form = document.querySelector('.search-box');
-      var searchInput = document.getElementById('search-input');
+  function addKeyword() {
+    const keywordInput = document.getElementById('keyword-input');
+    const keyword = keywordInput.value.trim();
 
-      form.addEventListener('submit', function(event) {
-        event.preventDefault();
+    if (keyword !== '') {
+      const keywordsContainer = document.getElementById('keywords-container');
+      const keywordItem = document.createElement('div');
+      keywordItem.className = 'keyword-item';
 
-        var searchQuery = encodeURIComponent(searchInput.value);
-        var url = 'http://localhost:8000/v1/scraper/' + searchQuery;
-        var csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+      const keywordText = document.createElement('span');
+      keywordText.textContent = keyword;
 
-        // Show the "Scraping in progress" popup with loader
-        var loader = document.createElement('div');
-        loader.className = 'loader';
-        var loaderContent = document.createElement('div');
-        loaderContent.className = 'loader-content';
-        var loaderSpinner = document.createElement('div');
-        loaderSpinner.className = 'loader-spinner';
-        loaderContent.appendChild(loaderSpinner);
-        loader.appendChild(loaderContent);
-        document.body.appendChild(loader);
+      const removeButton = document.createElement('button');
+      removeButton.className = 'remove-button';
+      removeButton.onclick = function() {
+        removeKeyword(keywordItem);
+      };
 
-        var popup = document.createElement('div');
-        popup.className = 'popup';
-        popup.textContent = 'Scraping in progress...';
-        document.body.appendChild(popup);
+      const crossSymbol = document.createTextNode('✖');
+      removeButton.appendChild(crossSymbol);
 
-        // Send the POST request
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.setRequestHeader('X-CSRFToken', csrfToken);
+      keywordItem.appendChild(keywordText);
+      keywordItem.appendChild(removeButton);
+      keywordsContainer.appendChild(keywordItem);
 
-        xhr.onload = function() {
-          // Hide the loader and show the success popup
-          loader.remove();
-          popup.textContent = 'Successfully processed the data';
+      keywordInput.value = '';
+    }
+  }
 
-          // Remove the success popup after a short delay
-          setTimeout(function() {
-            popup.remove();
-          }, 2000);
-        };
+  function removeKeyword(keywordItem) {
+    const keywordsContainer = document.getElementById('keywords-container');
+    keywordsContainer.removeChild(keywordItem);
+  }
 
-        xhr.onerror = function() {
-          // Handle errors
-          loader.remove();
-          popup.textContent = 'An error occurred';
+  function removeLatestKeyword() {
+    const keywordsContainer = document.getElementById('keywords-container');
+    const keywordItems = keywordsContainer.getElementsByClassName('keyword-item');
 
-          // Remove the error popup after a short delay
-          setTimeout(function() {
-            popup.remove();
-          }, 2000);
-        };
+    if (keywordItems.length > 0) {
+      const latestKeywordItem = keywordItems[keywordItems.length - 1];
+      keywordsContainer.removeChild(latestKeywordItem);
+    }
+  }
 
-        xhr.send(JSON.stringify({ query: searchQuery }));
-      });
-    });
+  function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      addKeyword();
+    }
+  }
+
+  function submitForm(event) {
+    // Perform any additional validation or processing here
+    // before submitting the form
+    console.log('Form submitted!');
+    event.preventDefault(); // Prevent the form from actually submitting
+  }
+
+  const keywordInput = document.getElementById('keyword-input');
+  keywordInput.addEventListener('keydown', handleKeyPress);
   </script>
 </head>
 <body>
-  <form class="search-box">
-      {% csrf_token %}
-      <button style="background: none; border: none; padding: 0">
-        <span style="font-size: 30px; vertical-align: -1px; color: #9B9B9B" class="material-symbols-outlined">search</span>
+  <form class="search-box" onsubmit="submitForm(event)">
+    {% csrf_token %}
+    <div id="keywords-container">
+      <input style="vertical-align: 4px; width: 255px;" type="text" id="keyword-input" placeholder="Enter a keyword">
+    </div>
+    <button style="background: none; border: none; padding: 0" type="button" onclick="addKeyword()">
+      <span style="font-size: 30px; vertical-align: -1px; color: #9B9B9B" class="material-symbols-outlined">add</span>
     </button>
-    <input style="vertical-align: 4px; width: 255px;" type="search" name="focus" placeholder="Search" id="search-input" value="">
-</form>
+    <input style="vertical-align: 4px; width: 255px;" type="submit" value="Submit">
+  </form>
 <h4><a href="crawler/dashboard"> Dashboard </a> </h4>
 <style>
     h4 {

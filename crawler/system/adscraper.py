@@ -156,6 +156,8 @@ def scrape_google_ads(query, max_ads=4):
         return ads
     except:
         return "No ads currently available"
+    
+    
 
 def save_ads_to_csv(ads):
     """

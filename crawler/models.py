@@ -3,16 +3,16 @@ import datetime
 
 class Ad_model(models.Model):
     ad_id = models.AutoField(primary_key=True)
-    query = models.CharField(max_length=200)
-    ad_url = models.CharField(max_length=200)
-    ad_title = models.CharField(max_length=200)
-    ad_description = models.CharField(max_length=200)
-    screenshot = models.FileField(max_length=250, default=None)
-    company_board_members = models.CharField(max_length=200)
-    company_contact_number = models.CharField(max_length=200)
-    notes = models.CharField(max_length=200)
+    query = models.CharField(max_length=200, blank=True)
+    ad_url = models.CharField(max_length=200, blank=True)
+    ad_title = models.CharField(max_length=200, blank=True)
+    ad_description = models.CharField(max_length=200, blank=True)
+    screenshot = models.FileField(max_length=250, default=None, blank=True)
+    company_board_members = models.CharField(max_length=200, blank=True)
+    company_contact_number = models.CharField(max_length=200, blank=True)
+    notes = models.CharField(max_length=200, blank=True)
     ad_new = models.BooleanField(default=True)
-    disposition = models.CharField(max_length=200)
+    disposition = models.CharField(max_length=200, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
