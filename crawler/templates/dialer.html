@@ -1,0 +1,178 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width ,initial-scale=1.0">
+    <title>Phone Dialer</title>
+    <link rel="stylesheet" href="{% static 'dist/css/dialer.css' %}"> 
+  </head>
+  <body>
+    
+    <div class="dial-pad-wrap">
+	<div class="left-pan">
+		<div class="contacts">
+			<div class="title">Contacts</div>
+			<div class="people clearfix">
+				<div class="photo pull-left">
+					<img src="#" alt="Avatar">
+				</div>
+				<div class="info pull-left">
+					<div class="name">ABC person</div>
+					<div class="phone"><span>+916</span><span class="number">0123456789</span></div>
+				</div>
+			</div>
+			<div class="people clearfix">
+				<div class="photo pull-left">
+					<img src="#">
+				</div>
+				<div class="info pull-left">
+					<div class="name">CDE PERSON </div>
+					<div class="phone"><span>+977</span><span class="number">5320100325</span></div>
+				</div>
+			</div>
+			<div class="people clearfix">
+				<div class="photo pull-left">
+					<img src="#">
+				</div>
+				<div class="info pull-left">
+					<div class="name">EFG PERSON</div>
+					<div class="phone"><span>+977</span><span class="number">0002453687</span></div>
+				</div>
+			</div>
+			<div class="people clearfix">
+				<div class="photo pull-left">
+					<img src="#">
+				</div>
+				<div class="info pull-left">
+					<div class="name">HIJ person</div>
+					<div class="phone"><span>+977</span><span class="number">7703256581</span></div>
+				</div>
+			</div>
+		</div>
+		<div class="calling">
+			<div class="title fadeIn animated infinite">Calling... </div>
+			<div class="photo bounceInDown animated"></div>
+			<div class="name rubberBand animated">anim</div>
+			<div class="number"></div>
+			<div class="action">
+				<div class="lnk"><button class="btn fadeInLeftBig animated"><i class="fa fa-mic"></i></button></div>
+				<div class="lnk"><button class="btn fadeInLeftBig animated"><i class="fa fa-vol"></i></button></div>
+				<div class="lnk"><button class="btn fadeInRightBig animated"><i class="fa fa-camera"></i></button></div>
+				<div class="lnk"><button class="btn fadeInRightBig animated"><i class="fa fa-video-camera"></i></button></div>
+			</div>
+			<div class="call-end bounceInUp animated">
+				<button class="btn"><i class="fa fa-phone"></i></button>
+			</div>
+		</div>
+	</div>
+	<div class="dial-pad">
+		<div class="dial-screen" contenteditable="false"></div>
+		<div class="dial-table">
+			<div class="dial-table-row">
+				<div class="dial-table-col">
+					<div class="dial-key-wrap" data-key="1">
+						<div class="dial-key">1</div>
+						<div class="dial-sub-key">&nbsp;</div>
+					</div>
+				</div>
+				<div class="dial-table-col">
+					<div class="dial-key-wrap" data-key="2">
+						<div class="dial-key">2</div>
+						<div class="dial-sub-key">abc</div>
+					</div>
+				</div>
+				<div class="dial-table-col">
+					<div class="dial-key-wrap" data-key="3">
+						<div class="dial-key">3</div>
+						<div class="dial-sub-key">def</div>
+					</div>
+				</div>
+			</div>
+			<div class="dial-table-row">
+				<div class="dial-table-col">
+					<div class="dial-key-wrap" data-key="4">
+						<div class="dial-key">4</div>
+						<div class="dial-sub-key">ghi</div>
+					</div>
+				</div>
+				<div class="dial-table-col">
+					<div class="dial-key-wrap" data-key="5">
+						<div class="dial-key">5</div>
+						<div class="dial-sub-key">jkl</div>
+					</div>
+				</div>
+				<div class="dial-table-col">
+					<div class="dial-key-wrap" data-key="6">
+						<div class="dial-key">6</div>
+						<div class="dial-sub-key">mno</div>
+					</div>
+				</div>
+			</div>
+			<div class="dial-table-row">
+				<div class="dial-table-col">
+					<div class="dial-key-wrap" data-key="7">
+						<div class="dial-key">7</div>
+						<div class="dial-sub-key">pqrs</div>
+					</div>
+				</div>
+				<div class="dial-table-col">
+					<div class="dial-key-wrap" data-key="8">
+						<div class="dial-key">8</div>
+						<div class="dial-sub-key">tuv</div>
+					</div>
+				</div>
+				<div class="dial-table-col">
+					<div class="dial-key-wrap" data-key="9">
+						<div class="dial-key">9</div>
+						<div class="dial-sub-key">wxyz</div>
+					</div>
+				</div>
+			</div>
+			<div class="dial-table-row">
+				<div class="dial-table-col">
+					<div class="dial-key-wrap" data-key="*">
+						<div class="dial-key">*</div>
+						<div class="dial-sub-key">&nbsp;</div>
+					</div>
+				</div>
+				<div class="dial-table-col">
+					<div class="dial-key-wrap" data-key="0">
+						<div class="dial-key">0</div>
+						<div class="dial-sub-key">+</div>
+					</div>
+				</div>
+				<div class="dial-table-col">
+					<div class="dial-key-wrap" data-key="#">
+						<div class="dial-key">#</div>
+						<div class="dial-sub-key">&nbsp;</div>
+					</div>
+				</div>
+			</div>
+			<div class="dial-table-row no-sub-key">
+				<div class="dial-table-col">
+				</div>
+				<div class="dial-table-col">
+					<div class="dial-key-wrap" data-key="call">
+						<div class="dial-key"><i class="fa fa-phone"></i></div>
+						<div class="dial-sub-key">Call</div>
+					</div>
+				</div>
+				<div class="dial-table-col">
+					<div class="dial-key-wrap" data-key="back">
+						<div class="dial-key"><i class="fa fa-long-arrow-left"></i></div>
+						<div class="dial-sub-key">Back</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+    
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+    <script src = "{% static 'dist/js/dialer.js' %}"></script>
+    
+  </body>
+</html>

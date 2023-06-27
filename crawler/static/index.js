@@ -71,10 +71,12 @@ function populateTable(data) {
     row.appendChild(adIdCell);
 
     var adTitleCell = document.createElement("td");
+    var created_at = project.created_at;
+    var created_date = created_at.split("T")[0];
     adTitleCell.innerHTML = `
       <a>${project.ad_title}</a>
       <br/>
-      <small>Created ${project.created_date}</small>
+      <small>Created ${created_date}</small>
     `;
     row.appendChild(adTitleCell);
 
@@ -107,7 +109,7 @@ function populateTable(data) {
     var actionsCell = document.createElement("td");
     actionsCell.className = "project-actions text-right";
     actionsCell.innerHTML = `
-    <a class="btn btn-info btn-sm" href="http://localhost:8000/v1/scraper/ad_info/${project.ad_id}">
+    <a class="btn btn-info btn-sm" href="http://localhost:8000/crawler/${project.ad_id}">
     <i class="fas fa-pencil-alt"></i>
     Edit
   </a>
@@ -185,22 +187,6 @@ function populateTable(data) {
   }
 }
 
-// Search functionality
-var searchForm = document.querySelector("#searchForm");
-var searchInput = document.querySelector("#searchInput");
-
-searchForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-  var searchTerm = searchInput.value.toLowerCase();
-  var filteredData = data.filter(function (project) {
-    var adTitleLowerCase = project.ad_title.toLowerCase();
-    var queryLowerCase = project.query.toLowerCase();
-    return (
-      adTitleLowerCase.includes(searchTerm) || queryLowerCase.includes(searchTerm)
-    );
-  });
-  populateTable(filteredData);
-});
 
 
   

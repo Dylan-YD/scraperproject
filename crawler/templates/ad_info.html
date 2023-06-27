@@ -54,29 +54,48 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Dylan Paleilei</a>
         </div>
-      </div>
+      </div> -->
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+               <li class="nav-header">MAIN NAVIGATION</li>
           <li class="nav-item has-treeview">
             <a href="dashboard" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
-                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>          
+          </li>
+          <li class="nav-header">ADS</li>
+          <li class="nav-item">
+            <a href="ads" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Ads
+                <!-- <span class="badge badge-info right">2</span> -->
               </p>
             </a>
-            
+          
+          <li class="nav-header">UTILITIES</li>
+          <li class="nav-item">
+            <a href="calender" class="nav-link">
+              <i class="nav-icon far fa-calendar-alt"></i>
+              <p>
+                Calendar
+                <!-- <span class="badge badge-info right">2</span> -->
+              </p>
+            </a>
           </li>
           
           
@@ -113,12 +132,13 @@
       <div class="card card-solid">
         <div class="card-body">
           <div class="row">
-            <div class="col-12 col-sm-6">
+            <div class="col-12 col-sm-5">
               <h3 class="d-inline-block d-sm-none">Ad title</h3>
               <div class="col-12">
                 <!-- Use the ad_info data to populate the ad image -->
                 <img src="{{ ad_info.screenshot }}" class="product-image" alt="ad image">
               </div>
+              
             </div>
             <div class="col-12 col-sm-6">
               <h3 class="my-3">{{ ad_info.ad_title }}</h3>
@@ -173,29 +193,45 @@
               <h4>Contact: {{ ad_info.company_contact_number }}</h4>
               <h4>Company Representative: {{ ad_info.company_board_member }}</h4>
 
-
               <div class="mt-4">
-                <div class="btn btn-primary btn-lg btn-flat">
-                  <i class="fas fa-cart-plus fa-lg mr-2"></i> 
-                  button to previous ad
-                </div>
-
                 <div class="btn btn-default btn-lg btn-flat">
-                  <i class="fas fa-heart fa-lg mr-2"></i> 
-                  button to next ad
+                  <i class="fas fa-angle-left fa-lg mr-2"></i> 
+                  Previous ad
+                </div>
+                <div class="btn btn-primary btn-lg btn-flat">
+                  Next ad
+                  <i class="fas fa-angle-right fa-lg mr-2"></i>
                 </div>
               </div>
+              
+                
             
             </div>
           </div>
           <div class="row mt-4">
-            <nav class="w-100">
-              <div class="nav nav-tabs" id="product-tab" role="tablist">
-                <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Notes</a>
+            <div class="col-md-3">
+              <div class="card card-success">
+                <div class="card-header">
+                  <h3 class="card-title">Notes</h3>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <form id="notesForm">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <label for="noteInput">Add a note:</label>
+                      <textarea class="form-control" id="noteInput" rows="5">
+                        {{ ad_info.notes }}
+                      </textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Note</button>
+                  </form>
+                </div>
               </div>
-            </nav>
-            <div class="tab-content p-3" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">This is the editable note coming from database </div>
             </div>
           </div>
         </div>
@@ -229,5 +265,6 @@
 <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'dist/js/demo.js' %}"></script>
+<script src="{% static 'adinfo.js' %}"></script>
 </body>
 </html>
