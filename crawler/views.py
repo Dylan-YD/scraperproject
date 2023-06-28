@@ -3,33 +3,53 @@ from rest_framework.views import APIView
 from datetime import datetime
 from crawler.ResponseHelper.response import ResponseHelper
 from .serializer import Ad_modelSerializer, company_infoSerializer
-from crawler.system.adscraper import scrape_google_ads
+from crawler.system.adscraper import scrape_google_ads, geotagging
 from crawler.system.webcontent import url_content_scraper
 from django.shortcuts import render
 
 class Ad_modelList(APIView):
     def post(self, request, query):
         try:
+            looper = 0
+            while looper < 3:
+                ads = url_content_scraper(query)
+                if not ads:
+                    continue
+                for ad in ads:
+                    title = ad["title"]
+                    url = ad["url"]
+                    description = ad["description"]
+                    screenshot = ad["screenshot"]
+                    company_contact_number = ad["contact_number"]
 
-            ads = url_content_scraper(query)
-            for ad in ads:
-                title = ad["title"]
-                url = ad["url"]
-                description = ad["description"]
-                screenshot = ad["screenshot"]
-                company_contact_number = ad["contact_number"]
+                    existing_ad = Ad_model.objects.filter(ad_url=url) or Ad_model.objects.filter(ad_title=title)
+                    if existing_ad:
+                        continue  
 
-                # Check if the ad URL or ad title already exists in the database
-                existing_ad = Ad_model.objects.filter(ad_url=url) or Ad_model.objects.filter(ad_title=title)
-                if existing_ad:
-                    continue  # Skip storing redundant data
-
-                ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number)
-                ad.save()
-            return ResponseHelper.get_success_response("Success", ads)
-        except Exception as e:
-            print(e)
-            return ResponseHelper.get_internal_server_error_response({'error': "Ad already registered or not found"})
+                    ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number)
+                    ad.save()
+            
+                queries = geotagging(query)
+                print(queries)
+                for q in queries:
+                    ads = url_content_scraper(q)
+                    if not ads:
+                        continue
+                    for ad in ads:
+                        title = ad["title"]
+                        url = ad["url"]
+                        description = ad["description"]
+                        screenshot = ad["screenshot"]
+                        company_contact_number = ad["contact_number"]
+                        existing_ad = Ad_model.objects.filter(ad_url=url) or Ad_model.objects.filter(ad_title=title)
+                        if existing_ad:
+                            continue  
+                        ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number)
+                        ad.save()
+                looper += 1
+            return ResponseHelper.get_success_response (ads,'successfully scraped data')
+        except:
+            return ResponseHelper.get_success_response (ads,'successfully scraped data')
         
     def get(self, request):
         try:

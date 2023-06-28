@@ -134,7 +134,7 @@ def scrape_google_ads(query, max_ads=4):
                 data = description.find_element(By.CSS_SELECTOR, "div").text.strip()
                 desc.append(data)
         except:
-            return "No description available"
+            return desc.append("No description available")
 
         ad_containers = scraper.find_elements(By.CSS_SELECTOR, ".v5yQqb")
         ads = []
@@ -155,9 +155,31 @@ def scrape_google_ads(query, max_ads=4):
         scraper.quit()
         return ads
     except:
-        return "No ads currently available"
+        return []
     
-    
+
+def geotagging(query):
+    url = f"https://www.google.com/search?q={query}"
+    scraper = webdriver.Chrome()
+    scraper.set_window_size(2048, 1080)
+    scraper.language = "en"
+    scraper.get(url)
+    time.sleep(2)
+    query_list_geo = []
+    try:
+        scraper.find_element(By.CLASS_NAME, "HzHK1").click()
+        time.sleep(2)
+        if scraper.find_element(By.CLASS_NAME, "QjCHvc").text.strip() == "No results found":
+            return []
+        first_geo = scraper.find_elements(By.CLASS_NAME, "QjCHvc")
+        for i, geo in enumerate(first_geo):
+            if i >= 4:
+                break
+            q = geo.find_element(By.TAG_NAME, "a").get_attribute("data-query")
+            query_list_geo.append(q)
+        return query_list_geo
+    except:
+        return [query]
 
 def save_ads_to_csv(ads):
     """

@@ -115,115 +115,174 @@
       </div><!-- /.container-fluid -->
     </section>
 
-    <!-- Main content -->
-    <section class="content">
+  <!-- Main content -->
+<section class="content">
 
-      <!-- Default box -->
-      <div class="card card-solid">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-12 col-sm-5">
-              <h3 class="d-inline-block d-sm-none">Ad title</h3>
-              <div class="col-12">
-                <!-- Use the ad_info data to populate the ad image -->
-                <img src="{{ ad_info.screenshot }}" class="product-image" alt="ad image">
-              </div>
-              
-            </div>
-            <div class="col-12 col-sm-6">
-              <h3 class="my-3">{{ ad_info.ad_title }}</h3>
-              <p>{{ ad_info.ad_description }}</p>
+  <!-- Default box -->
+  <div class="card card-solid">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-sm-5">
+          <h3 class="d-inline-block d-sm-none">Ad title</h3>
+          <div class="col-12">
+            <!-- Use the ad_info data to populate the ad image -->
+            <img src="{{ ad_info.screenshot }}" class="product-image" alt="ad image">
+            
+          </div>
+          
+        </div>
+        <div class="col-12 col-sm-7">
+          <!-- <div class="bg-gray py-1 px-3 mt-0">
+            <h2 class="mb-0">
+              {{ ad_info.query }}
+            </h2>
+          </div> -->
+          <form id="adForm">
+            <h3 class="my-12"><input type="text" id="adTitle" name="adTitle" value="{{ ad_info.ad_title }}" style="width:100%"></h3>
+            <p><textarea id="adDescription" name="adDescription" rows="3" style="width:100%">{{ ad_info.ad_description }}</textarea></p>
+            <h4 class="mt-1"> 
+              URL: <a href="{{ ad_info.ad_url }}"><small>{{ ad_info.ad_url }}</small></a>
+            </h4>
 
-              <hr>
-              <h4>Disposition</h4>
-            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-default text-center active" onclick="selectDisposition('Not booked')">
-                <input type="radio" name="color_option" id="color_option1" autocomplete="off" checked>
-                No Answer
+            <hr>
+            <h4>Disposition</h4>
+            <div class="btn-group btn-group-toggle disposition-buttons" data-toggle="buttons">
+              <label class="btn btn-default text-center">
+                <input type="radio" name="disposition" id="disposition1" autocomplete="off">
+                Appointment Booked
                 <br>
                 <i class="fas fa-circle fa-2x text-green"></i>
               </label>
-              <label class="btn btn-default text-center" onclick="selectDisposition('No answer')">
-                <input type="radio" name="color_option" id="color_option2" autocomplete="off">
+              <label class="btn btn-default text-center">
+                <input type="radio" name="disposition" id="disposition2" autocomplete="off">
                 Not Interested
                 <br>
-                <i class="fas fa-circle fa-2x text-blue"></i>
+                <i class="fas fa-circle fa-2x text-orange"></i>
               </label>
-              <label class="btn btn-default text-center" onclick="selectDisposition('Appointment taken')">
-                <input type="radio" name="color_option" id="color_option3" autocomplete="off">
+              <label class="btn btn-default text-center">
+                <input type="radio" name="disposition" id="disposition3" autocomplete="off">
                 Booked appointment
+                <br>
+                <i class="fas fa-circle fa-2x text-yellow"></i>
+              </label>
+              <label class="btn btn-default text-center">
+                <input type="radio" name="disposition" id="disposition3" autocomplete="off">
+                Call Back
                 <br>
                 <i class="fas fa-circle fa-2x text-purple"></i>
               </label>
             </div>
+            <style>
+              .disposition-buttons label.active {
+              background-color: #007bff;
+              color: #fff;
+            }
 
-              <h4 class="mt-0"> <a href="{{ ad_info.ad_url }}">
-                <small>URL: {{ ad_info.ad_url }}</small></a>
-              </h4>
-              
+            .disposition-buttons label.active:focus,
+            .disposition-buttons label.active:hover {
+              background-color: #007bff;
+              color: #fff;
+              box-shadow: 0 0 10px #007bff, 0 0 20px #007bff, 0 0 30px #007bff;
+              outline: none;
+            }
 
-              <div class="bg-gray py-2 px-3 mt-4">
-                <h2 class="mb-0">
-                  {{ ad_info.query }}
-                </h2>
-              </div>
+            .disposition-buttons label:hover {
+              background-color: #f8f9fa;
+              box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+            }
 
-              <h4>Contact: {{ ad_info.company_contact_number }}</h4>
-              <h4>Company Representative: {{ ad_info.company_board_member }}</h4>
+            .disposition-buttons label:focus {
+              background-color: #f8f9fa;
+            }
+            .notes-section {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+  width: 400px;
+  height: 300px;
+  margin-top: 500px;
+  margin-right: 1200px;
+}
+            </style>
 
-              <div class="mt-4">
-                <div class="btn btn-default btn-lg btn-flat" id="previousAdButton">
-                  <i class="fas fa-angle-left fa-lg mr-2"></i> 
-                  Previous ad
-                </div>
-                <div class="btn btn-primary btn-lg btn-flat" id="nextAdButton">
-                  Next ad
-                  <i class="fas fa-angle-right fa-lg mr-2"></i>
-                </div>
-              </div>
-                
             
+
+<div class="form-group">
+  <label for="contactPerson">Contact Person:</label>
+  <input type="text" id="contactPerson" name="contactPerson" value="{{ ad_info.contact_person }}" class="form-control">
+</div>
+
+<div class="form-group">
+  <label for="personRole">Person Role:</label>
+  <input type="text" id="personRole" name="personRole" value="{{ ad_info.person_role }}" class="form-control">
+</div>
+
+<div class="form-group">
+  <label for="contactNumber">Contact Number:</label>
+  <input type="text" id="contactNumber" name="contactNumber" value="{{ ad_info.company_contact_number }}" class="form-control">
+</div>
+
+<div class="form-group">
+  <label for="contactEmail">Contact Email:</label>
+  <input type="text" id="contactEmail" name="contactEmail" value="{{ ad_info.contact_email }}" class="form-control">
+</div>
+
+            
+            <input type="hidden" id="adId" name="adId" value="{{ ad_info.id }}">
+            <button type="button" onclick="saveChanges()" class="btn btn-primary mt-4">Save Changes</button>
+            <div class="mt-4">
+              <div class="btn btn-default btn-lg btn-flat" id="previousAdButton">
+                <i class="fas fa-angle-left fa-lg mr-6"></i> 
+                Previous ad
+              </div>
+              <div class="btn btn-primary btn-lg btn-flat" id="nextAdButton">
+                Next ad
+                <i class="fas fa-angle-right fa-lg mr-6"></i>
+              </div>
+            </div>
+
+          </form>
+        
+        </div>
+      </div>
+      <div class="notes-section">
+        <div class="card card-success">
+          <div class="card-header">
+            <h3 class="card-title">Notes</h3>
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
             </div>
           </div>
-          <div class="row mt-4">
-            <div class="col-md-3">
-              <div class="card card-success">
-                <div class="card-header">
-                  <h3 class="card-title">Notes</h3>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <form id="notesForm">
-                    {% csrf_token %}
-                    <div class="form-group">
-                      <label for="noteInput">Add a note:</label>
-                      <textarea class="form-control" id="noteInput" rows="5">{{ ad_info.notes }}
-                      </textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save Note</button>
-                  </form>
-                </div>
+          <div class="card-body">
+            <form id="notesForm">
+              <div class="form-group">
+                <!-- <label for="noteInput">Add a note:</label> -->
+                <textarea class="form-control" id="noteInput" rows="5">{{ ad_info.notes }}</textarea>
               </div>
-            </div>
+              <button type="submit" class="btn btn-primary">Save Note</button>
+            </form>
           </div>
         </div>
-        <!-- /.card-body -->
       </div>
-      <!-- /.card -->
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
 
-    </section>
-    <!-- /.content -->
+</section>
+<!-- /.content -->
+
+
+
+
+
+
+
   </div>
   <!-- /.content-wrapper -->
-
-  <footer class="main-footer">
-    <strong>Copyright &copy; 2024 <a href="#">Dylan paleilei</a>.</strong> All rights
-    reserved.
-  </footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -242,5 +301,17 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'dist/js/demo.js' %}"></script>
 <script src="{% static 'adinfo.js' %}"></script>
+<script>
+  const dispositionButtons = document.querySelectorAll('.disposition-buttons label');
+
+dispositionButtons.forEach(button => {
+  button.addEventListener('click', function() {
+    dispositionButtons.forEach(button => {
+      button.classList.remove('active');
+    });
+    this.classList.add('active');
+  });
+});
+</script>
 </body>
 </html>

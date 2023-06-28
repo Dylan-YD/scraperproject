@@ -86,4 +86,6 @@ def url_content_scraper(query):
             ad["Company board members"] = "not found"
     save_ads_to_csv(ads)    
     print("ads saved to csv")
+    print("ads")
+    print(ads)
     return ads

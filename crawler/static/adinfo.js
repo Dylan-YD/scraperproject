@@ -57,8 +57,7 @@ nextAdButton.addEventListener('click', navigateToNextAd);
 
 
 // function to upadte form data 
- // Get the ad ID from the URL or any other method you use to retrieve it
- const adId = 11; // Replace with the actual ad ID
+  const adId = getCurrentAdId();
 
    // Function to handle form submission
    function handleSubmit(event) {
