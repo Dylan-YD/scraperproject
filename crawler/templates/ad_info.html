@@ -28,15 +28,23 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="ads" class="nav-link">Home</a>
+        <a href="dashboard" class="nav-link">Dashboard</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="ads" class="nav-link">Ads</a>
       </li>
     </ul>
 
+
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-      
+      <li class="nav-item">
+        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+          <i class="fas fa-th-large"></i>
+        </a>
+      </li>
     </ul>
+  </nav>
   </nav>
   <!-- /.navbar -->
 
@@ -138,10 +146,11 @@
             </h2>
           </div> -->
           <form id="adForm">
+            {% csrf_token %}
             <h3 class="my-12"><input type="text" id="adTitle" name="adTitle" value="{{ ad_info.ad_title }}" style="width:100%"></h3>
             <p><textarea id="adDescription" name="adDescription" rows="3" style="width:100%">{{ ad_info.ad_description }}</textarea></p>
             <h4 class="mt-1"> 
-              URL: <a href="{{ ad_info.ad_url }}"><small>{{ ad_info.ad_url }}</small></a>
+              URL: <a href="{{ ad_info.ad_url }}"target="_blank"><small>{{ ad_info.ad_url }}</small></a>
             </h4>
 
             <hr>
@@ -161,71 +170,45 @@
               </label>
               <label class="btn btn-default text-center">
                 <input type="radio" name="disposition" id="disposition3" autocomplete="off">
-                Booked appointment
+                No Answer
                 <br>
                 <i class="fas fa-circle fa-2x text-yellow"></i>
               </label>
               <label class="btn btn-default text-center">
                 <input type="radio" name="disposition" id="disposition3" autocomplete="off">
-                Call Back
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Call Back Client&details=Contact Client Date&dates=20240605T103000/20240605T184500&location=Australia", target="_blank" style="color: black;">Call_Back</a>
                 <br>
                 <i class="fas fa-circle fa-2x text-purple"></i>
               </label>
             </div>
-            <style>
-              .disposition-buttons label.active {
-              background-color: #007bff;
-              color: #fff;
-            }
 
-            .disposition-buttons label.active:focus,
-            .disposition-buttons label.active:hover {
-              background-color: #007bff;
-              color: #fff;
-              box-shadow: 0 0 10px #007bff, 0 0 20px #007bff, 0 0 30px #007bff;
-              outline: none;
-            }
 
-            .disposition-buttons label:hover {
-              background-color: #f8f9fa;
-              box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
-            }
-
-            .disposition-buttons label:focus {
-              background-color: #f8f9fa;
-            }
-            .notes-section {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 9999;
-  width: 400px;
-  height: 300px;
-  margin-top: 500px;
-  margin-right: 1200px;
-}
-            </style>
-
-            
-
+          
 <div class="form-group">
+  {% csrf_token %}
   <label for="contactPerson">Contact Person:</label>
-  <input type="text" id="contactPerson" name="contactPerson" value="{{ ad_info.contact_person }}" class="form-control">
+  <input type="text" id="contactPerson" name="contactPerson" value="{{ ad_info.company_board_members }}" class="form-control">
 </div>
 
 <div class="form-group">
+  {% csrf_token %}
   <label for="personRole">Person Role:</label>
-  <input type="text" id="personRole" name="personRole" value="{{ ad_info.person_role }}" class="form-control">
+  <input type="text" id="personRole" name="personRole" value="{{ ad_info.company_board_member_role }}" class="form-control">
+  
 </div>
 
 <div class="form-group">
+  {% csrf_token %}
   <label for="contactNumber">Contact Number:</label>
   <input type="text" id="contactNumber" name="contactNumber" value="{{ ad_info.company_contact_number }}" class="form-control">
+  
 </div>
 
 <div class="form-group">
+  {% csrf_token %}
   <label for="contactEmail">Contact Email:</label>
-  <input type="text" id="contactEmail" name="contactEmail" value="{{ ad_info.contact_email }}" class="form-control">
+  <input type="text" id="contactEmail" name="contactEmail" value="{{ ad_info.company_email }}" class="form-control">
+  
 </div>
 
             
@@ -258,6 +241,7 @@
           </div>
           <div class="card-body">
             <form id="notesForm">
+              {% csrf_token %}
               <div class="form-group">
                 <!-- <label for="noteInput">Add a note:</label> -->
                 <textarea class="form-control" id="noteInput" rows="5">{{ ad_info.notes }}</textarea>
@@ -275,8 +259,11 @@
 </section>
 <!-- /.content -->
 
-
-
+<!-- Add a loading spinner or progress indicator -->
+<div id="loader" style="display: none;">
+  <!-- Replace this with your preferred loading spinner or progress indicator HTML -->
+  Loading...
+</div>
 
 
 
@@ -291,7 +278,39 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+<style>
+  .disposition-buttons label.active {
+  background-color: #007bff;
+  color: #fff;
+}
 
+.disposition-buttons label.active:focus,
+.disposition-buttons label.active:hover {
+  background-color: #007bff;
+  color: #fff;
+  box-shadow: 0 0 10px #007bff, 0 0 20px #007bff, 0 0 30px #007bff;
+  outline: none;
+}
+
+.disposition-buttons label:hover {
+  background-color: #f8f9fa;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
+.disposition-buttons label:focus {
+  background-color: #f8f9fa;
+}
+.notes-section {
+position: absolute;
+top: 0;
+right: 0;
+z-index: 9999;
+width: 400px;
+height: 300px;
+margin-top: 500px;
+margin-right: 1100px;
+}
+</style>
 <!-- jQuery -->
 <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
 <!-- Bootstrap 4 -->
@@ -301,7 +320,35 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'dist/js/demo.js' %}"></script>
 <script src="{% static 'adinfo.js' %}"></script>
+
 <script>
+
+var disposition = "{{ ad_info.disposition }}";
+var dispitem = document.querySelectorAll('.disposition-buttons label');
+
+dispitem.forEach(button => {
+  if (button.innerText.trim() === disposition) {
+    button.classList.add('active');
+    button.click(); // Simulate initial click to keep it pressed
+
+    // Add click event listener to toggle active state
+    button.addEventListener('click', function(event) {
+      event.preventDefault(); // Prevent default behavior of the button
+      button.classList.toggle('active'); // Toggle active class on each click
+
+      // Remove active class from other buttons
+      dispitem.forEach(otherButton => {
+        if (otherButton !== button) {
+          otherButton.classList.remove('active');
+        }
+      });
+    });
+  }
+});
+
+
+
+
   const dispositionButtons = document.querySelectorAll('.disposition-buttons label');
 
 dispositionButtons.forEach(button => {
@@ -313,5 +360,62 @@ dispositionButtons.forEach(button => {
   });
 });
 </script>
+<script>
+function saveChanges() {
+  $('#loader').show();
+
+  var url = window.location.href;
+  var adId = url.substring(url.lastIndexOf("/") + 1);
+
+  // Get the CSRF token from the cookie
+  var csrftoken = getCookie('csrftoken');
+
+  // Get the form values
+  var adTitle = $('#adTitle').val();
+  var adDescription = $('#adDescription').val();
+  var adUrl = $('#adUrl').val();
+  var adDisposition = $('.disposition-buttons label.active').text().trim();
+  var contactPerson = $('#contactPerson').val();
+  var personRole = $('#personRole').val();
+  var contactNumber = $('#contactNumber').val();
+  var contactEmail = $('#contactEmail').val();
+
+  // Get the data
+  var data = {
+    'ad_id': adId,
+    'ad_title': adTitle,
+    'ad_description': adDescription,
+    'ad_url': adUrl,
+    'disposition': adDisposition,
+    'company_board_members': contactPerson,
+    'company_board_member_role': personRole,
+    'company_contact_number': contactNumber,
+    'company_email': contactEmail
+  };
+
+  // Make the AJAX request
+  $.ajax({
+    url: 'http://localhost:8000/v1/crawler/update_ad/' + adId,
+    type: 'PUT',
+    data: JSON.stringify(data),
+    contentType: 'application/json',
+    headers: {
+      'X-CSRFToken': csrftoken
+    },
+    success: function(response) {
+      // Handle the success response here
+      console.log('Data saved successfully');
+      $('#loader').hide();
+    },
+    error: function(error) {
+      // Handle the error response here
+      console.error('Error saving data:', error);
+      $('#loader').hide();
+    }
+  });
+}
+</script>
+<!-- Add the jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

@@ -94,8 +94,6 @@ def scrape_google_ads(query, max_ads=4):
             last_screenshot_count = get_last_screenshot_count(
                 file_paths=os.listdir(f"media/data/{query}/")
             )
-            
-            #saving image only with some contents
             if not is_empty_image(im):
                 im.save(f"media/data/{query}/{query}_{last_screenshot_count+1}.png")
                 indexes.append(last_screenshot_count+1)
@@ -121,7 +119,6 @@ def scrape_google_ads(query, max_ads=4):
                         bottom = location["y"] + size["height"]
 
                         im = im.crop((left, top, right, bottom))
-                        
                         if not is_empty_image(im):
                             im.save(f"media/data/{query}/{query}_{last_screenshot_count+1}.png")
                             indexes.append(last_screenshot_count+1)
@@ -162,7 +159,6 @@ def geotagging(query):
     url = f"https://www.google.com/search?q={query}"
     scraper = webdriver.Chrome()
     scraper.set_window_size(2048, 1080)
-    scraper.language = "en"
     scraper.get(url)
     time.sleep(2)
     query_list_geo = []
@@ -189,7 +185,7 @@ def save_ads_to_csv(ads):
         ads (list): List of ads to save
     """
 
-    header = ["query", "title", "url", "description", "contact_number", "Company board members",  "screenshot"]
+    header = ["query", "title", "url", "description", "contact_number", "company_board_members","company_email", "company_board_members_role","screenshot"]
 
     if not os.path.exists("ads.csv"):
         with open("ads.csv", "w", newline="") as f:

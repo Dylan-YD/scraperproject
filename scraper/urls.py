@@ -27,7 +27,7 @@ urlpatterns = [
     path("", include('crawler.urls')),
     path('admin/', admin.site.urls),
     path('v1/scraper', views.Ad_modelList.as_view()),
-    path('v1/scraper/<str:query>', views.Ad_modelList.as_view()),
+    path('v1/scraper/csv', views.Ad_modelList.as_view()),
     path ('v1/scraper/query/<str:query>', views.Ad_queryOne.as_view())
 ]
 

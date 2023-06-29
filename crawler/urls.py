@@ -21,10 +21,10 @@ def dialer(request):
     return render(request, 'dialer.html')
 
 urlpatterns = [
+    path('', search),
     path('crawler/dashboard', dashboard),
     path('crawler/ads', ads_page),
     path('crawler/calender', calender),
-    path('', search),
     path('crawler/ad_info', ad_info),
     path('crawler/dialer', dialer),
     path('crawler/<int:ad_id>', views.single_ad_info.as_view()),

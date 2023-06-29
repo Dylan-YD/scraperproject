@@ -4,7 +4,7 @@ from rest_framework import serializers
 class Ad_modelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ad_model
-        fields = ('ad_id','ad_url', 'ad_title', 'ad_description', 'query', 'screenshot', 'company_contact_number', 'ad_new', 'company_board_members', 'notes', 'disposition', 'created_at')
+        fields = ('ad_id','ad_url', 'ad_title', 'ad_description', 'query', 'screenshot', 'company_contact_number', 'ad_new', 'company_board_members', 'notes', 'disposition', 'created_at', 'company_board_member_role', 'company_email')
 
 class company_infoSerializer(serializers.ModelSerializer):
     class Meta:

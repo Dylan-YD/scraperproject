@@ -10,6 +10,8 @@ class Ad_model(models.Model):
     screenshot = models.FileField(max_length=250, default=None, blank=True)
     company_board_members = models.CharField(max_length=200, blank=True)
     company_contact_number = models.CharField(max_length=200, blank=True)
+    company_email = models.CharField(max_length=200, blank=True)
+    company_board_member_role = models.CharField(max_length=200, blank=True)
     notes = models.CharField(max_length=200, blank=True)
     ad_new = models.BooleanField(default=True)
     disposition = models.CharField(max_length=200, blank=True)

@@ -36,17 +36,6 @@
         </li>
       </ul>
   
-      <!-- SEARCH FORM -->
-      <form class="form-inline ml-3">
-        <div class="input-group input-group-sm">
-          <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-navbar" type="submit">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
   
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
@@ -217,14 +206,6 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.0.4
-    </div>
-    <strong>Copyright &copy; 2024 <a href="#">Dylan Paleilei</a>.</strong> All rights
-    reserved.
-  </footer>
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -253,19 +234,13 @@
 <!-- Page specific script -->
 <script>
   $(function () {
-
-    /* initialize the external events
-     -----------------------------------------------------------------*/
     function ini_events(ele) {
       ele.each(function () {
 
-        // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-        // it doesn't need to have a start or end
         var eventObject = {
           title: $.trim($(this).text()) // use the element's text as the event title
         }
 
-        // store the Event Object in the DOM element so we can get to it later
         $(this).data('eventObject', eventObject)
 
         // make the event draggable using jQuery UI

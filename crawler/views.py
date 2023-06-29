@@ -6,33 +6,17 @@ from .serializer import Ad_modelSerializer, company_infoSerializer
 from crawler.system.adscraper import scrape_google_ads, geotagging
 from crawler.system.webcontent import url_content_scraper
 from django.shortcuts import render
+import pandas as pd
 
 class Ad_modelList(APIView):
-    def post(self, request, query):
+    def post(self, request):
+        df = pd.read_csv('keywords.csv')
         try:
-            looper = 0
-            while looper < 3:
-                ads = url_content_scraper(query)
-                if not ads:
-                    continue
-                for ad in ads:
-                    title = ad["title"]
-                    url = ad["url"]
-                    description = ad["description"]
-                    screenshot = ad["screenshot"]
-                    company_contact_number = ad["contact_number"]
-
-                    existing_ad = Ad_model.objects.filter(ad_url=url) or Ad_model.objects.filter(ad_title=title)
-                    if existing_ad:
-                        continue  
-
-                    ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number)
-                    ad.save()
-            
-                queries = geotagging(query)
-                print(queries)
-                for q in queries:
-                    ads = url_content_scraper(q)
+            keywords = df['keywords'].tolist()
+            for query in keywords:
+                looper = 0
+                while looper < 2:
+                    ads = url_content_scraper(query)
                     if not ads:
                         continue
                     for ad in ads:
@@ -41,16 +25,43 @@ class Ad_modelList(APIView):
                         description = ad["description"]
                         screenshot = ad["screenshot"]
                         company_contact_number = ad["contact_number"]
+                        company_board_members = ad["company_board_members"]
+                        company_email = ad["company_email"]
+                        company_board_member_role = ad["company_board_members_role"]
+
                         existing_ad = Ad_model.objects.filter(ad_url=url) or Ad_model.objects.filter(ad_title=title)
                         if existing_ad:
                             continue  
-                        ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number)
+
+                        ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number, company_board_members=company_board_members, company_email=company_email, company_board_member_role=company_board_member_role)
                         ad.save()
-                looper += 1
-            return ResponseHelper.get_success_response (ads,'successfully scraped data')
-        except:
-            return ResponseHelper.get_success_response (ads,'successfully scraped data')
-        
+                
+                    queries = geotagging(query)
+                    print(queries)
+                    for q in queries:
+                        ads = url_content_scraper(q)
+                        if not ads:
+                            continue
+                        for ad in ads:
+                            title = ad["title"]
+                            url = ad["url"]
+                            description = ad["description"]
+                            screenshot = ad["screenshot"]
+                            company_contact_number = ad["company_contact_number"]
+                            company_board_members = ad["company_board_members"]
+                            company_email = ad["company_email"]
+                            company_board_member_role = ad["company_board_members_role"]
+
+                            existing_ad = Ad_model.objects.filter(ad_url=url) or Ad_model.objects.filter(ad_title=title)
+                            if existing_ad:
+                                continue  
+                            ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number, company_board_members=company_board_members, company_email=company_email, company_board_member_role=company_board_member_role)
+                            ad.save()
+                    looper += 1
+            return ResponseHelper.get_success_response (keywords,'successfully scraped data')
+        except Exception as e:
+            return ResponseHelper.get_internal_server_error_response(str(e))
+            
     def get(self, request):
         try:
             ad = Ad_model.objects.all()

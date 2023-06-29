@@ -28,7 +28,6 @@ def finding_company_boardmembers (url):
             board_members.append(board_mem)
         except:
             pass
-    # print(board_members)
     return board_members
 
 def finding_company_contact_number(url):
@@ -53,6 +52,25 @@ def finding_company_contact_number(url):
     except:
         return None
 
+def finding_company_email(url):
+    try:
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        email = soup.find_all('a', href=re.compile(r'^mailto:'))
+        email = email[0].get_text()
+        return email
+    except:
+        return None
+
+def finding_company_boardmembers_role(url):
+    try:
+        page = requests.get(url)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        role = soup.find_all('a', href=re.compile(r'^mailto:'))
+        role = role[0].get_text()
+        return role
+    except:
+        return None
 
 def url_content_scraper(query):
     option = Options()
@@ -64,28 +82,41 @@ def url_content_scraper(query):
     scraper.set_window_size(2048, 1080)
 
     ads = scrape_google_ads(query)
+    if not ads:
+        return []
     for ad in ads:
         url = ad["url"]
         print(url)
         try:
-            try:
-                contact_number = finding_company_contact_number(url)
-                if contact_number:
-                    print(contact_number)
-                board_members = finding_company_boardmembers(url)
-                if board_members:
-                    print(board_members)
-            except:
-                url = scraper.find_element(By.XPATH, "//a[contains(text(), 'Contact Us'), contains(text(), 'Contact'), contains(text(), 'About'), contains(text(), 'About Us'), contains(text(), 'meet our team')]").click()
-                time.sleep(5)
-                contact_number = finding_company_contact_number(url)
-            ad["contact_number"] = contact_number[0]
-            ad["Company board members"] = board_members[0]
+            url = scraper.find_element(By.XPATH, "//a[contains(text(), 'Contact Us'), contains(text(), 'Contact'), contains(text(), 'About'), contains(text(), 'About Us'), contains(text(), 'meet our team')]").click()
+            contact_number = finding_company_contact_number(url)
+            if contact_number:
+                print(contact_number)
+            company_email = finding_company_email(url)
+            if company_email:
+                print(company_email)
+            url = scraper.find_element(By.XPATH, "//a[contains(text(), 'meet our team'), contains(text(), 'Meet Our Team') contains(text(), 'Our Team'), contains(text(), 'Our team'), contains(text(), 'our team'), contains(text(), 'Team'), contains(text(), 'team'), contains(text(), 'Board Members'), contains(text(), 'board members'), contains(text(), 'Board Member'), contains(text(), 'board member'), contains(text(), 'Board of Directors'), contains(text(), 'board of directors'), contains(text(), 'Board of Director'), contains(text(), 'board of director'), contains(text(), 'Contact')]").click()
+            board_members = finding_company_boardmembers(url)
+            if board_members:
+                print(board_members)
+            board_member_role = finding_company_boardmembers_role(url)
+            if board_member_role:
+                print(board_member_role)
+
+            contact_number = finding_company_contact_number(url)
+        
+            ad["company_contact_number"] = contact_number[0]
+            ad["company_board_members"] = board_members[0]
+            ad["company_email"] = company_email
+            ad["company_board_members_role"] = board_member_role
+
         except:
             ad["contact_number"] = "not found"
-            ad["Company board members"] = "not found"
+            ad["company_board_members"] = "not found"
+            ad['company_email'] = "not found"
+            ad["company_board_members_role"] = "not found"
+
     save_ads_to_csv(ads)    
     print("ads saved to csv")
-    print("ads")
     print(ads)
     return ads
