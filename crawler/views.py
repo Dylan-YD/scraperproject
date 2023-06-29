@@ -1,12 +1,11 @@
-from .models import Ad_model, company_info
-from rest_framework.views import APIView
-from datetime import datetime
-from crawler.ResponseHelper.response import ResponseHelper
-from .serializer import Ad_modelSerializer, company_infoSerializer
-from crawler.system.adscraper import scrape_google_ads, geotagging
-from crawler.system.webcontent import url_content_scraper
-from django.shortcuts import render
 import pandas as pd
+from .models import Ad_model
+from django.shortcuts import render
+from rest_framework.views import APIView
+from .serializer import Ad_modelSerializer
+from crawler.system.adscraper import geotagging
+from crawler.system.webcontent import url_content_scraper
+from crawler.ResponseHelper.response import ResponseHelper
 
 class Ad_modelList(APIView):
     def post(self, request):
