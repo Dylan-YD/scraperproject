@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scraper | Scrape</title>
+</head>
+<body>
+    <div class="wrap">
+        <button class="button" onclick="sendPostRequest()"><b>Scrape</b></button>
+        <a href="http://localhost:8000/crawler/dashboard"><button class="button right-button"><b>Dashboard</b></button></a>
+    </div>
+    <style>
+        html, body {
+            height: 100%;
+        }
+    
+        .wrap {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    
+        .button {
+            width: 200px;
+            height: 100px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            font-weight: 500;
+            color: #000;
+            background-color: #fff;
+            border: none;
+            border-radius: 45px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease 0s;
+            cursor: pointer;
+            outline: none;
+        }
+    
+        .button:hover {
+            background-color: #2EE59D;
+            box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+            color: #fff;
+            transform: translateY(-7px);
+        }
+    
+        .right-button {
+            margin-left: 10px;
+            width: 120px;
+            height: 68px;
+            font-size: 12px;
+        }
+
+        /* Loader styles */
+        .loader {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            border-top-color: #2EE59D;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+    </style>
+
+    <script>
+        function sendPostRequest() {
+            const button = document.querySelector('.button');
+            button.disabled = true; // Disable the button during the process
+            button.innerHTML = '<span class="loader"></span> Scraping...';
+
+            fetch('http://localhost:8000/v1/scraper/csv', {
+                method: 'POST'
+            })
+            .then(response => {
+                button.disabled = false; // Re-enable the button after the process
+
+                if (response.status === 202) {
+                    // Process is still pending
+                    button.innerHTML = 'Scrape'; // Reset button text
+                    alert('The process is still pending. Please wait for completion.');
+                } else if (response.ok) {
+                    // Process completed successfully
+                    console.log('POST request sent successfully.');
+                    button.innerHTML = 'Scrape'; // Reset button text
+                    alert('Process completed successfully!');
+                } else {
+                    // Error response
+                    console.error('Error sending POST request.');
+                    button.innerHTML = 'Scrape'; // Reset button text
+                    alert('An error occurred during the process.');
+                }
+            })
+            .catch(error => {
+                console.error('Network error:', error);
+                button.disabled = false; // Re-enable the button after the process
+                button.innerHTML = 'Scrape'; // Reset button text
+                alert('A network error occurred.');
+            });
+        }
+    </script>
+</body>
+</html>

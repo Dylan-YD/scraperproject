@@ -9,14 +9,21 @@ from crawler.ResponseHelper.response import ResponseHelper
 
 class Ad_modelList(APIView):
     def post(self, request):
+        print("getting data")
         df = pd.read_csv('keywords.csv')
         try:
+            print("started scraping")
             keywords = df['keywords'].tolist()
             for query in keywords:
+                print("*"*100)
+                print(query)
                 looper = 0
-                while looper < 2:
+                while looper < 3:
+                    print(looper)
+                    print("inside loop")
                     ads = url_content_scraper(query)
                     if not ads:
+                        looper += 1
                         continue
                     for ad in ads:
                         title = ad["title"]
@@ -46,7 +53,7 @@ class Ad_modelList(APIView):
                             url = ad["url"]
                             description = ad["description"]
                             screenshot = ad["screenshot"]
-                            company_contact_number = ad["company_contact_number"]
+                            company_contact_number = ad["contact_number"]
                             company_board_members = ad["company_board_members"]
                             company_email = ad["company_email"]
                             company_board_member_role = ad["company_board_members_role"]
@@ -59,6 +66,7 @@ class Ad_modelList(APIView):
                     looper += 1
             return ResponseHelper.get_success_response (keywords,'successfully scraped data')
         except Exception as e:
+            print(e)
             return ResponseHelper.get_internal_server_error_response(str(e))
             
     def get(self, request):
