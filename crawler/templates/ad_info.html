@@ -183,35 +183,52 @@
               </a>
               </label>
             </div>
+            
 
-
-          
-<div class="form-group">
-  {% csrf_token %}
-  <label for="contactPerson">Contact Person:</label>
-  <input type="text" id="contactPerson" name="contactPerson" value="{{ ad_info.company_board_members }}" class="form-control">
-</div>
-
-<div class="form-group">
-  {% csrf_token %}
-  <label for="personRole">Person Role:</label>
-  <input type="text" id="personRole" name="personRole" value="{{ ad_info.company_board_member_role }}" class="form-control">
-  
-</div>
-
-<div class="form-group">
-  {% csrf_token %}
-  <label for="contactNumber">Contact Number:</label>
-  <input type="text" id="contactNumber" name="contactNumber" value="{{ ad_info.company_contact_number }}" class="form-control">
-  
-</div>
-
-<div class="form-group">
-  {% csrf_token %}
-  <label for="contactEmail">Contact Email:</label>
-  <input type="text" id="contactEmail" name="contactEmail" value="{{ ad_info.company_email }}" class="form-control">
-  
-</div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                {% csrf_token %}
+                <label for="contactPerson">Contact Person:</label>
+                <input type="text" id="contactPerson" name="contactPerson" value="{{ ad_info.company_board_members }}" class="form-control">
+              </div>
+            
+              <div class="form-group col-md-6">
+                {% csrf_token %}
+                <label for="personRole">Person Role:</label>
+                <input type="text" id="personRole" name="personRole" value="{{ ad_info.company_board_member_role }}" class="form-control">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                {% csrf_token %}
+                <label for="contactNumber">Contact Number:</label>
+                <input type="text" id="contactNumber" name="contactNumber" value="{{ ad_info.company_contact_number }}" class="form-control">
+              </div>
+            
+              <div class="form-group col-md-6">
+                {% csrf_token %}
+                <label for="contactEmail">Contact Email:</label>
+                <input type="text" id="contactEmail" name="contactEmail" value="{{ ad_info.company_email }}" class="form-control">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                {% csrf_token %}
+                <label for="whois">Whois:</label>
+                <input type="text" id="whois" name="whois" value="{{ ad_info.whois }}" class="form-control">
+              </div>
+            
+              <div class="form-group col-md-6">
+                {% csrf_token %}
+                <label for="secondaryPhoneNumber">Secondary Contact Number:</label>
+                <input type="text" id="secondaryPhoneNumber" name="secondaryPhoneNumber" value="" class="form-control">
+              </div>
+            </div>
+            
+            
+            
 
             
             <input type="hidden" id="adId" name="adId" value="{{ ad_info.id }}">
@@ -281,6 +298,12 @@
 </div>
 <!-- ./wrapper -->
 <style>
+  .disposition-buttons {
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
   .disposition-buttons label.active {
   background-color: #007bff;
   color: #fff;
@@ -303,14 +326,18 @@
   background-color: #f8f9fa;
 }
 .notes-section {
-position: absolute;
-top: 0;
-right: 0;
-z-index: 9999;
-width: 400px;
-height: 300px;
-margin-top: 500px;
-margin-right: 1100px;
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  width: 300px;
+}
+
+@media (max-width: 768px) {
+  .notes-section {
+    position: static;
+    margin-top: 20px;
+    width: 100%;
+  }
 }
 </style>
 <!-- jQuery -->

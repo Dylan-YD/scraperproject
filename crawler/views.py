@@ -18,7 +18,7 @@ class Ad_modelList(APIView):
                 print("*"*100)
                 print(query)
                 looper = 0
-                while looper < 3:
+                while looper < 1:
                     print(looper)
                     print("inside loop")
                     ads = url_content_scraper(query)
@@ -34,12 +34,13 @@ class Ad_modelList(APIView):
                         company_board_members = ad["company_board_members"]
                         company_email = ad["company_email"]
                         company_board_member_role = ad["company_board_members_role"]
+                        whois = ad["whois"]
 
                         existing_ad = Ad_model.objects.filter(ad_url=url) or Ad_model.objects.filter(ad_title=title)
                         if existing_ad:
                             continue  
 
-                        ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number, company_board_members=company_board_members, company_email=company_email, company_board_member_role=company_board_member_role)
+                        ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number, company_board_members=company_board_members, company_email=company_email, company_board_member_role=company_board_member_role, whois=whois)
                         ad.save()
                 
                     queries = geotagging(query)
@@ -57,11 +58,12 @@ class Ad_modelList(APIView):
                             company_board_members = ad["company_board_members"]
                             company_email = ad["company_email"]
                             company_board_member_role = ad["company_board_members_role"]
+                            whois = ad["whois"]
 
                             existing_ad = Ad_model.objects.filter(ad_url=url) or Ad_model.objects.filter(ad_title=title)
                             if existing_ad:
                                 continue  
-                            ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number, company_board_members=company_board_members, company_email=company_email, company_board_member_role=company_board_member_role)
+                            ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number, company_board_members=company_board_members, company_email=company_email, company_board_member_role=company_board_member_role, whois=whois)
                             ad.save()
                     looper += 1
             return ResponseHelper.get_success_response (keywords,'successfully scraped data')

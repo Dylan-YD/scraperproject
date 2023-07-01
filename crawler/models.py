@@ -16,6 +16,8 @@ class Ad_model(models.Model):
     ad_new = models.BooleanField(default=True)
     disposition = models.CharField(max_length=200, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    whois = models.CharField(max_length=200, blank=True)
+    secondary_contact = models.CharField(max_length=200, blank=True)
 
     def save(self, *args, **kwargs):
         if not self.ad_id:
