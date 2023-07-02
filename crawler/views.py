@@ -11,10 +11,18 @@ class Ad_modelList(APIView):
     def post(self, request):
         print("getting data")
         df = pd.read_csv('keywords.csv')
+        
+        queries = []
+        for index, row in df.iterrows():
+            keyword = row['keywords']
+            rest_of_columns = ', '.join(str(row[column]) for column in df.columns if column != 'keywords')
+            
+            query = f"{keyword}, {rest_of_columns}"
+            queries.append(query)
+        
         try:
             print("started scraping")
-            keywords = df['keywords'].tolist()
-            for query in keywords:
+            for query in queries:
                 print("*"*100)
                 print(query)
                 looper = 0
@@ -43,30 +51,30 @@ class Ad_modelList(APIView):
                         ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number, company_board_members=company_board_members, company_email=company_email, company_board_member_role=company_board_member_role, whois=whois)
                         ad.save()
                 
-                    queries = geotagging(query)
-                    print(queries)
-                    for q in queries:
-                        ads = url_content_scraper(q)
-                        if not ads:
-                            continue
-                        for ad in ads:
-                            title = ad["title"]
-                            url = ad["url"]
-                            description = ad["description"]
-                            screenshot = ad["screenshot"]
-                            company_contact_number = ad["contact_number"]
-                            company_board_members = ad["company_board_members"]
-                            company_email = ad["company_email"]
-                            company_board_member_role = ad["company_board_members_role"]
-                            whois = ad["whois"]
+                    # queries = geotagging(query)
+                    # print(queries)
+                    # for q in queries:
+                    #     ads = url_content_scraper(q)
+                    #     if not ads:
+                    #         continue
+                    #     for ad in ads:
+                    #         title = ad["title"]
+                    #         url = ad["url"]
+                    #         description = ad["description"]
+                    #         screenshot = ad["screenshot"]
+                    #         company_contact_number = ad["contact_number"]
+                    #         company_board_members = ad["company_board_members"]
+                    #         company_email = ad["company_email"]
+                    #         company_board_member_role = ad["company_board_members_role"]
+                    #         whois = ad["whois"]
 
-                            existing_ad = Ad_model.objects.filter(ad_url=url) or Ad_model.objects.filter(ad_title=title)
-                            if existing_ad:
-                                continue  
-                            ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number, company_board_members=company_board_members, company_email=company_email, company_board_member_role=company_board_member_role, whois=whois)
-                            ad.save()
+                    #         existing_ad = Ad_model.objects.filter(ad_url=url) or Ad_model.objects.filter(ad_title=title)
+                    #         if existing_ad:
+                    #             continue  
+                    #         ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number, company_board_members=company_board_members, company_email=company_email, company_board_member_role=company_board_member_role, whois=whois)
+                    #         ad.save()
                     looper += 1
-            return ResponseHelper.get_success_response (keywords,'successfully scraped data')
+            return ResponseHelper.get_success_response (queries,'successfully scraped data')
         except Exception as e:
             print(e)
             return ResponseHelper.get_internal_server_error_response(str(e))

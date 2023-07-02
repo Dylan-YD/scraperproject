@@ -67,6 +67,7 @@ def scrape_google_ads(query, max_ads=4):
     scraper.set_window_size(2048, 1080)
 
     url = f"https://www.google.com/search?q={query}"
+    print(url)
     scraper.get(url)
     time.sleep(2)
     try:
