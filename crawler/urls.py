@@ -24,13 +24,13 @@ def scraper(request):
     return render(request, 'scraper_data.html')
 
 urlpatterns = [
-    path('', search),
+    # path('', search),
+    path('', scraper),
     path('crawler/dashboard', dashboard),
     path('crawler/ads', ads_page),
     path('crawler/calender', calender),
     path('crawler/ad_info', ad_info),
     path('crawler/dialer', dialer),
-    path('crawler/scraper/', scraper),
     path('crawler/<int:ad_id>', views.single_ad_info.as_view()),
     path('v1/crawler/delete_ad/<int:ad_id>', views.ad_delete.as_view()),
     path('v1/crawler/update_ad/<int:ad_id>', views.ad_update.as_view()),

@@ -13,12 +13,13 @@ class Ad_modelList(APIView):
         df = pd.read_csv('keywords.csv')
         
         queries = []
-        for index, row in df.iterrows():
-            keyword = row['keywords']
-            rest_of_columns = ', '.join(str(row[column]) for column in df.columns if column != 'keywords')
-            
-            query = f"{keyword}, {rest_of_columns}"
-            queries.append(query)
+        for i in range(0, len(df['keywords'])):
+            for j in range(0, len(df['buzzwords'])):
+                for k in range(0, len(df["suburb"])):
+                # keywords,buzzwords,suburb,Postcode,State
+                    query = str(df['keywords'][i])+ " " + str(df['buzzwords'][j])+ " " + str(df['suburb'][k])+ " " + str(df['Postcode'][k]) + " " + str(df['State'][k])
+                    queries.append(query) 
+            print(queries)
         
         try:
             print("started scraping")
@@ -26,7 +27,7 @@ class Ad_modelList(APIView):
                 print("*"*100)
                 print(query)
                 looper = 0
-                while looper < 1:
+                while looper < 5:
                     print(looper)
                     print("inside loop")
                     ads = url_content_scraper(query)

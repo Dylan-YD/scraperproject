@@ -4,7 +4,6 @@ import csv
 import time
 import numpy as np
 from PIL import Image
-from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -127,7 +126,7 @@ def scrape_google_ads(query, max_ads=4):
             descriptions = scraper.find_elements(By.CSS_SELECTOR, ".MUxGbd.yDYNvb.lyLwlc")
             desc = []
             for i, description in enumerate(descriptions):
-                if i >= max_ads:
+                if i >= max_ads or i >= len(indexes):
                     break
                 data = description.find_element(By.CSS_SELECTOR, "div").text.strip()
                 desc.append(data)
@@ -137,7 +136,7 @@ def scrape_google_ads(query, max_ads=4):
         ad_containers = scraper.find_elements(By.CSS_SELECTOR, ".v5yQqb")
         ads = []
         for i, ad_container in enumerate(ad_containers):
-            if i >= max_ads:
+            if i >= max_ads or i >= len(indexes):
                 break
             url = ad_container.find_element(By.CSS_SELECTOR, "a").get_attribute("href")
             title = ad_container.find_element(By.CSS_SELECTOR, "div div div div div div").text.strip()
@@ -152,7 +151,7 @@ def scrape_google_ads(query, max_ads=4):
             ads.append(ad)
         scraper.quit()
         return ads
-    except:
+    except Exception:
         return []
     
 
@@ -186,7 +185,7 @@ def save_ads_to_csv(ads):
         ads (list): List of ads to save
     """
 
-    header = ["query", "title", "url", "description", "contact_number", "company_board_members","company_email", "company_board_members_role","screenshot"]
+    header = ["query", "title", "url", "description", "contact_number", "company_board_members","company_email", "whois", "company_board_members_role", "secondary Contact","screenshot"]
 
     if not os.path.exists("ads.csv"):
         with open("ads.csv", "w", newline="") as f:

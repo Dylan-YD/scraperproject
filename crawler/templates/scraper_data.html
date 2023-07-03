@@ -81,7 +81,7 @@
             button.disabled = true; // Disable the button during the process
             button.innerHTML = '<span class="loader"></span> Scraping...';
 
-            fetch('http://localhost:8000/v1/scraper/csv', {
+            fetch('http://127.0.0.1:8000/v1/scraper/csv', {
                 method: 'POST'
             })
             .then(response => {

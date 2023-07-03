@@ -217,13 +217,13 @@
               <div class="form-group col-md-6">
                 {% csrf_token %}
                 <label for="whois">Whois:</label>
-                <input type="text" id="whois" name="whois" value="{{ ad_info.whois }}" class="form-control">
+                <input type="text" id="whoIs" name="whoIs" value="{{ ad_info.whois }}" class="form-control">
               </div>
             
               <div class="form-group col-md-6">
                 {% csrf_token %}
                 <label for="secondaryPhoneNumber">Secondary Contact Number:</label>
-                <input type="text" id="secondaryPhoneNumber" name="secondaryPhoneNumber" value="" class="form-control">
+                <input type="text" id="secondaryPhoneNumber" name="secondaryPhoneNumber" value="{{ ad_info.secondary_contact }}" class="form-control">
               </div>
             </div>
             
@@ -408,6 +408,8 @@ function saveChanges() {
   var personRole = $('#personRole').val();
   var contactNumber = $('#contactNumber').val();
   var contactEmail = $('#contactEmail').val();
+  var whoIs = $('#whoIs').val();
+  var secondaryPhoneNumber = $('#secondaryPhoneNumber').val();
 
   // Get the data
   var data = {
@@ -419,7 +421,9 @@ function saveChanges() {
     'company_board_members': contactPerson,
     'company_board_member_role': personRole,
     'company_contact_number': contactNumber,
-    'company_email': contactEmail
+    'company_email': contactEmail,
+    'whois': whoIs,
+    'secondary_contact': secondaryPhoneNumber
   };
 
   // Make the AJAX request
