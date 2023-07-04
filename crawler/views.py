@@ -27,9 +27,8 @@ class Ad_modelList(APIView):
                 print("*"*100)
                 print(query)
                 looper = 0
-                while looper < 5:
-                    print(looper)
-                    print("inside loop")
+                while looper < 2:
+                    print("looper",looper)
                     ads = url_content_scraper(query)
                     if not ads:
                         looper += 1
@@ -51,6 +50,7 @@ class Ad_modelList(APIView):
 
                         ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number, company_board_members=company_board_members, company_email=company_email, company_board_member_role=company_board_member_role, whois=whois)
                         ad.save()
+                        print("data saved")
                 
                     # queries = geotagging(query)
                     # print(queries)
@@ -74,11 +74,11 @@ class Ad_modelList(APIView):
                     #             continue  
                     #         ad = Ad_model.objects.create(ad_url=url, ad_title=title, ad_description=description, query=query, screenshot=screenshot, company_contact_number=company_contact_number, company_board_members=company_board_members, company_email=company_email, company_board_member_role=company_board_member_role, whois=whois)
                     #         ad.save()
+                    #         print("query data saved")
                     looper += 1
             return ResponseHelper.get_success_response (queries,'successfully scraped data')
-        except Exception as e:
-            print(e)
-            return ResponseHelper.get_internal_server_error_response(str(e))
+        except:
+            return ResponseHelper.get_internal_server_error_response("Error in scraping data")
             
     def get(self, request):
         try:

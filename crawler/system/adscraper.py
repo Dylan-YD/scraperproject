@@ -157,7 +157,13 @@ def scrape_google_ads(query, max_ads=4):
 
 def geotagging(query):
     url = f"https://www.google.com/search?q={query}"
-    scraper = webdriver.Chrome()
+    option = Options()
+    option.add_argument("--headless")
+    option.add_argument("--no-sandbox")
+    option.add_argument("--disable-dev-shm-usage")
+    service = Service("path/to/chromedriver")
+    scraper = webdriver.Chrome(service=service, options=option)
+    
     scraper.set_window_size(2048, 1080)
     scraper.get(url)
     time.sleep(2)

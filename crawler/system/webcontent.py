@@ -71,7 +71,6 @@ def url_content_scraper(query):
         print(url)
         try:
             try:
-                print("inside the try")
                 details = facebook_crawler(url)
                 ad["contact_number"] = details[1]
                 email = details[2]
@@ -96,5 +95,4 @@ def url_content_scraper(query):
         
     save_ads_to_csv(ads)    
     print("ads saved to csv")
-    print(ads)
     return ads

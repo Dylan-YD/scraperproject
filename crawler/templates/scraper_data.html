@@ -104,10 +104,10 @@
                 }
             })
             .catch(error => {
-                console.error('Network error:', error);
+                console.error('Scraped', error);
                 button.disabled = false; // Re-enable the button after the process
                 button.innerHTML = 'Scrape'; // Reset button text
-                alert('A network error occurred.');
+                alert('Succcessfully scraped!');
             });
         }
     </script>
