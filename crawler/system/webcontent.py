@@ -29,9 +29,9 @@ def whois_lookup (url):
             print(board_members)
             return board_members[5]
         except:
-            return "Not Found"
+            return ""
     except:
-        return "Not Found"
+        return ""
     
 def facebook_crawler(url):
     print("started facebook crawling...")
@@ -80,18 +80,18 @@ def url_content_scraper(query):
                 ad["company_email"] = email
                 print(details[1], details[2])
             except:
-                ad["contact_number"] = "Not Found"
-                ad["company_email"] = "Not Found"
+                ad["contact_number"] = ""
+                ad["company_email"] = ""
             
-            try:
-                whois = whois_lookup(url)
-                print(whois)
-                ad["whois"] = whois
-            except:
-                ad["whois"] = "Not Found"
+            # try:
+            #     whois = whois_lookup(url)
+            #     print(whois)
+            #     ad["whois"] = whois
+            # except:
+            ad["whois"] = ""
 
-            ad["company_board_members_role"] = "Not Found"
-            ad["company_board_members"] = "Not Found"
+            ad["company_board_members_role"] = ""
+            ad["company_board_members"] = ""
 
         except:
             return []
