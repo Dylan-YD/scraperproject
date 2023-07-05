@@ -8,32 +8,35 @@ from crawler.system.adscraper import scrape_google_ads, save_ads_to_csv
 def whois_lookup (url):
     print("started whois lookup crawling...")
     options = Options()
-    # options.add_argument("--headless")
+    options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     service = Service("path/to/chromedriver")
     scraper = webdriver.Chrome(service=service, options=options)
     scraper.set_window_size(2048, 1080)
-    url = "https://www.whois.com/whois/" + url
-    scraper.get(url)
-    time.sleep(4)
     try:
-        boards = scraper.find_elements(By.CLASS_NAME, "df-value")
-        board_members = []
-        for board in boards:
-            try:
-                board_members.append(board.text)
-            except:
-                pass
-        print(board_members)
-        return board_members[5]
+        url = "https://www.whois.com/whois/" + url
+        scraper.get(url)
+        time.sleep(4)
+        try:
+            boards = scraper.find_elements(By.CLASS_NAME, "df-value")
+            board_members = []
+            for board in boards:
+                try:
+                    board_members.append(board.text)
+                except:
+                    pass
+            print(board_members)
+            return board_members[5]
+        except:
+            return "Not Found"
     except:
         return "Not Found"
     
 def facebook_crawler(url):
     print("started facebook crawling...")
     options = Options()
-    # options.add_argument("--headless")
+    options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     service = Service("path/to/chromedriver")
