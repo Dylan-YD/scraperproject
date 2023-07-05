@@ -42,20 +42,23 @@ def facebook_crawler(url):
     service = Service("path/to/chromedriver")
     scraper = webdriver.Chrome(service=service, options=options)
     scraper.set_window_size(2048, 1080)
-    url = "https://www.google.com/search?q=" + "facebook page "+ url
-    scraper.get(url)
-    scraper.find_element(By.CLASS_NAME, "yuRUbf").click()
-    time.sleep(4)
-    scraper.find_element(By.CLASS_NAME,"x1i10hfl.x6umtig.x1b1mbwd.xaqea5y.xav7gou.x1ypdohk.xe8uvvx.xdj266r.x11i5rnm.xat24cr.x1mh8g0r.x16tdsg8.x1hl2dhg.xggy1nq.x87ps6o.x1lku1pv.x1a2a7pz.x6s0dn4.x14yjl9h.xudhj91.x18nykt9.xww2gxu.x972fbf.xcfux6l.x1qhh985.xm0m39n.x9f619.x78zum5.xl56j7k.xexx8yu.x4uap5.x18d9i69.xkhd6sd.x1n2onr6.xc9qbxq.x14qfxbe.x1qhmfi1").click()
-    time.sleep(4)
-    contact_number = scraper.find_elements(By.CLASS_NAME, "x193iq5w.xeuugli.x13faqbe.x1vvkbs.x10flsy6.x1lliihq.x1s928wv.xhkezso.x1gmr53x.x1cpjm7i.x1fgarty.x1943h6x.x4zkp8e.x41vudc.x6prxxf.xvq8zen.xo1l8bm.xzsf02u.x1yc453h")
-    contact_list = []
-    for contact in contact_number:
-        try:
-            contact_list.append(contact.text)
-        except:
-            contact_list.append("Not Found")
-    return contact_list
+    try:
+        url = "https://www.google.com/search?q=" + "facebook page "+ url
+        scraper.get(url)
+        scraper.find_element(By.CLASS_NAME, "yuRUbf").click()
+        time.sleep(4)
+        scraper.find_element(By.CLASS_NAME,"x1i10hfl.x6umtig.x1b1mbwd.xaqea5y.xav7gou.x1ypdohk.xe8uvvx.xdj266r.x11i5rnm.xat24cr.x1mh8g0r.x16tdsg8.x1hl2dhg.xggy1nq.x87ps6o.x1lku1pv.x1a2a7pz.x6s0dn4.x14yjl9h.xudhj91.x18nykt9.xww2gxu.x972fbf.xcfux6l.x1qhh985.xm0m39n.x9f619.x78zum5.xl56j7k.xexx8yu.x4uap5.x18d9i69.xkhd6sd.x1n2onr6.xc9qbxq.x14qfxbe.x1qhmfi1").click()
+        time.sleep(4)
+        contact_number = scraper.find_elements(By.CLASS_NAME, "x193iq5w.xeuugli.x13faqbe.x1vvkbs.x10flsy6.x1lliihq.x1s928wv.xhkezso.x1gmr53x.x1cpjm7i.x1fgarty.x1943h6x.x4zkp8e.x41vudc.x6prxxf.xvq8zen.xo1l8bm.xzsf02u.x1yc453h")
+        contact_list = []
+        for contact in contact_number:
+            try:
+                contact_list.append(contact.text)
+            except:
+                contact_list.append("")
+        return contact_list
+    except:
+        return ""
 
 def url_content_scraper(query):
     option = Options()

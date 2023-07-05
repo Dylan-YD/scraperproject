@@ -17,7 +17,7 @@ class Ad_modelList(APIView):
             for j in range(0, len(df['buzzwords'])):
                 for k in range(0, len(df["suburb"])):
                 # keywords,buzzwords,suburb,Postcode,State
-                    query = str(df['keywords'][i])+ " " + str(df['buzzwords'][j])+ " " + str(df['suburb'][k])+ " " + str(df['Postcode'][k]) + " " + str(df['State'][k])
+                    query = str(df['keywords'][i])+ " " + str(df['buzzwords'][j])+ " " + str(df['suburb'][k])+ " " + str(int(df['Postcode'][k])) + " " + str(df['State'][k])
                     queries.append(query) 
             print(queries)
         
