@@ -11,16 +11,25 @@ class Ad_modelList(APIView):
     def post(self, request):
         print("getting data")
         df = pd.read_csv('keywords.csv')
-        
         queries = []
-        for i in range(0, len(df['keywords'])):
-            for j in range(0, len(df['buzzwords'])):
-                for k in range(0, len(df["suburb"])):
-                # keywords,buzzwords,suburb,Postcode,State
-                    query = str(df['keywords'][i])+ " " + str(df['buzzwords'][j])+ " " + str(df['suburb'][k])+ " " + str(int(df['Postcode'][k])) + " " + str(df['State'][k])
-                    queries.append(query) 
-            print(queries)
+        # Get non-null values for each column
+        keywords = df['keywords'].dropna()
+        buzzwords = df['buzzwords'].dropna()
+        suburbs = df['suburb'].dropna()
+        postcodes = df['Postcode'].dropna()
+        states = df['State'].dropna()
+
+        # Nested loops to generate all combinations
+        for keyword in keywords:
+            for buzzword in buzzwords if buzzwords.any() else [None]:
+                for suburb in suburbs if suburbs.any() else [None]:
+                    for postcode in postcodes if postcodes.any() else [None]:
+                        for state in states if states.any() else [None]:
+                            queries.append(f'{keyword} {buzzword} {suburb} {postcode} {state}')
         
+        print("queries",queries)
+
+
         try:
             print("started scraping")
             for query in queries:
