@@ -55,7 +55,6 @@ const nextAdButton = document.getElementById('nextAdButton');
 nextAdButton.addEventListener('click', navigateToNextAd);
 
 
-
 // function to upadte form data 
   const adId = getCurrentAdId();
 
