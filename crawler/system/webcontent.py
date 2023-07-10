@@ -86,12 +86,12 @@ def url_content_scraper(query):
                 ad["contact_number"] = ""
                 ad["company_email"] = ""
             
-            # try:
-            #     whois = whois_lookup(url)
-            #     print(whois)
-            #     ad["whois"] = whois
-            # except:
-            ad["whois"] = ""
+            try:
+                whois = whois_lookup(url)
+                print(whois)
+                ad["whois"] = whois
+            except:
+                ad["whois"] = ""
 
             ad["company_board_members_role"] = ""
             ad["company_board_members"] = ""

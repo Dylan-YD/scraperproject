@@ -15,17 +15,13 @@ class Ad_modelList(APIView):
         # Get non-null values for each column
         keywords = df['keywords'].dropna()
         buzzwords = df['buzzwords'].dropna()
-        suburbs = df['suburb'].dropna()
-        postcodes = df['Postcode'].dropna()
-        states = df['State'].dropna()
+        locations = df['locations'].dropna()
 
         # Nested loops to generate all combinations
         for keyword in keywords:
             for buzzword in buzzwords if buzzwords.any() else [None]:
-                for suburb in suburbs if suburbs.any() else [None]:
-                    for postcode in postcodes if postcodes.any() else [None]:
-                        for state in states if states.any() else [None]:
-                            queries.append(f'{keyword} {buzzword} {suburb} {postcode} {state}')
+                for location in locations if locations.any() else [None]:
+                    queries.append(f'{keyword} {buzzword} {location}')
         
         print("queries",queries)
 
