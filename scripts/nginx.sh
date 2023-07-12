@@ -13,5 +13,5 @@ sudo gpasswd -a www-data ubuntu
 sudo chown -R www-data:www-data /home/ubuntu/scraperproject
 echo "changed ownership"
 
-sudo systemctl restart nginx
+# sudo systemctl restart nginx
 
