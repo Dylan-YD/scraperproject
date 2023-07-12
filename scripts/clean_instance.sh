@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 #
-sudo rm -rf /home/ubuntu/scraper/*
+sudo rm -rf /home/ubuntu/scraperproject/*

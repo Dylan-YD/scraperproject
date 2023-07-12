@@ -2,9 +2,9 @@ version: 0.0
 os: linux
 files: 
   - source: /
-    destination: /home/ubuntu/scraper
+    destination: /home/ubuntu/scraperproject
 permissions:
-  - object: /home/ubuntu/scraper
+  - object: /home/ubuntu/scraperproject
     owner: ubuntu
     group: ubuntu
 hooks:
