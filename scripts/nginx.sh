@@ -9,3 +9,4 @@ sudo ln -s /etc/nginx/sites-available/scraper /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo gpasswd -a www-data ubuntu
 sudo systemctl restart nginx
+sudo service nginx restart
