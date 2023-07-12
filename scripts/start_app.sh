@@ -1,5 +1,5 @@
 #!/usr/bin/bash 
-
+sudo su -
 sed -i 's/\[]/\["54.205.89.138"]/' /home/ubuntu/scraperproject/scraper/settings.py
 
 python3 manage.py migrate 
