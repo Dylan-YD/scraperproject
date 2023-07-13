@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     "corsheaders",
     'django.contrib.auth',
-    'whitenose.runserver_nostatic',
+    'whitenoise.runserver_nostatic',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -137,31 +137,31 @@ MEDIA_ROOT = BASE_DIR
 MEDIA_URL = '/media/'
 
 
-CORS_ORIGIN_WHITELIST = [
-    'http://54.205.89.138/',
-    'https://54.205.89.138/',
-]
+# CORS_ORIGIN_WHITELIST = [
+#     'http://54.205.89.138/',
+#     'https://54.205.89.138/',
+# ]
 
-# Allow all headers and methods (modify as per your requirements)
-CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-]
+# # Allow all headers and methods (modify as per your requirements)
+# CORS_ALLOW_HEADERS = [
+#     'accept',
+#     'accept-encoding',
+#     'authorization',
+#     'content-type',
+#     'dnt',
+#     'origin',
+#     'user-agent',
+#     'x-csrftoken',
+#     'x-requested-with',
+# ]
 
-CORS_ALLOW_METHODS = [
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
-]
+# CORS_ALLOW_METHODS = [
+#     'DELETE',
+#     'GET',
+#     'OPTIONS',
+#     'PATCH',
+#     'POST',
+#     'PUT',
+# ]
 
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
