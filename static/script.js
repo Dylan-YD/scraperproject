@@ -1,6 +1,6 @@
 // Load the number of ads from the API
 
-fetch("http://localhost:8000/v1/scraper/number_of_ads")
+fetch("http://54.205.89.138:8001/v1/scraper/number_of_ads")
 .then(response => response.json())
 .then(data => {
   // Update the HTML with the retrieved data
@@ -13,7 +13,7 @@ fetch("http://localhost:8000/v1/scraper/number_of_ads")
 
 
 // v1/scraper/ad_queries_count'
-fetch("http://localhost:8000/v1/scraper/ad_queries_count")
+fetch("http://54.205.89.138:8001/v1/scraper/ad_queries_count")
 .then(response => response.json())
 .then(data => {
   // Update the HTML with the retrieved data
@@ -31,7 +31,7 @@ form.addEventListener("submit", event => {
     event.preventDefault();
     const formData = new FormData(form);
     const query = formData.get("query");
-    const url = `http://localhost:8000/v1/scraper/${query}`;
+    const url = `http://54.205.89.138:8001/v1/scraper/${query}`;
     fetch(url, { method: "POST" })
     .then(response => response.json())
     .then(data => {
@@ -52,7 +52,7 @@ document.getElementById('searchForm').addEventListener('submit', function(e) {
   var csrfToken = form.querySelector('input[name="csrfmiddlewaretoken"]').value;
   var query = form.querySelector('#queryInput').value;
 
-  fetch('http://localhost:8000/v1/scraper/', {
+  fetch('http://54.205.89.138:8001/v1/scraper/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -69,8 +69,8 @@ document.getElementById('searchForm').addEventListener('submit', function(e) {
 });
 
 //getting all the ads
-  // Fetch data from localhost:8000/v1/scraper
-  fetch('http://localhost:8000/v1/scraper')
+  // Fetch data from local54.205.89.138host:8001/v1/scraper
+  fetch('http://54.205.89.138:8001/v1/scraper')
     .then(response => response.json())
     .then(data => {
       if (data.status === 200) {
