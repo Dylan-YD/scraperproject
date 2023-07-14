@@ -7,7 +7,6 @@ User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/scraperproject
 ExecStart=/home/ubuntu/env/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/ubuntu/scraperproject/scraper/scraper.sock scraper.wsgi:application
-
-       
+   
 [Install]
 WantedBy=multi-user.target
