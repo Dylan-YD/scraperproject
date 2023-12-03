@@ -32,7 +32,9 @@ def whois_lookup (url):
             return ""
     except:
         return ""
-    
+    finally:
+        scraper.quit()
+
 def facebook_crawler(url):
     print("started facebook crawling...")
     options = Options()
@@ -59,16 +61,10 @@ def facebook_crawler(url):
         return contact_list
     except:
         return ""
+    finally:
+        scraper.quit()
 
 def url_content_scraper(query):
-    option = Options()
-    option.add_argument("--headless")
-    option.add_argument("--no-sandbox")
-    option.add_argument("--disable-dev-shm-usage")
-    service = Service("path/to/chromedriver")
-    scraper = webdriver.Chrome(service=service, options=option)
-    scraper.set_window_size(2048, 1080)
-
     ads = scrape_google_ads(query)
     if not ads:
         return []
@@ -98,7 +94,7 @@ def url_content_scraper(query):
 
         except:
             return []
-        
-    save_ads_to_csv(ads)    
+
+    save_ads_to_csv(ads)
     print("ads saved to csv")
     return ads

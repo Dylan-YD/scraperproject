@@ -149,10 +149,11 @@ def scrape_google_ads(query, max_ads=4):
                 "screenshot": f"media/data/{query}/{query}_{indexes[i]}.png"
             }
             ads.append(ad)
-        scraper.quit()
         return ads
     except Exception:
         return []
+    finally:
+        scraper.quit()
     
 
 def geotagging(query):
@@ -182,6 +183,8 @@ def geotagging(query):
         return query_list_geo
     except:
         return [query]
+    finally:
+        scraper.quit()
 
 def save_ads_to_csv(ads):
     """
