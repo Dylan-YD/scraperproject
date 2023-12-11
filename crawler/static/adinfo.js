@@ -16,7 +16,7 @@ const getCurrentAdId = () => {
 const navigateToPreviousAd = () => {
   const currentAdId = getCurrentAdId();
   const previousAdId = parseInt(currentAdId) - 1;
-  const previousAdUrl = `http://54.205.89.138:8001/crawler/${previousAdId}`;
+  const previousAdUrl = `http://127.0.0.1:8000/crawler/${previousAdId}`;
 
   // Check if the page exists, if not, keep decrementing the ad ID
   checkAdUrlExists(previousAdUrl, navigateToPreviousAd, navigateToNextAd);
@@ -26,7 +26,7 @@ const navigateToPreviousAd = () => {
 const navigateToNextAd = () => {
   const currentAdId = getCurrentAdId();
   const nextAdId = parseInt(currentAdId) + 1;
-  const nextAdUrl = `http://54.205.89.138:8001/crawler/${nextAdId}`;
+  const nextAdUrl = `http://127.0.0.1:8000/crawler/${nextAdId}`;
 
   // Check if the page exists, if not, keep incrementing the ad ID
   checkAdUrlExists(nextAdUrl, navigateToNextAd, navigateToPreviousAd);
@@ -63,7 +63,7 @@ nextAdButton.addEventListener('click', navigateToNextAd);
     event.preventDefault(); // Prevent the default form submission
 
     const noteInput = document.getElementById('noteInput').value;
-    const url = `http://54.205.89.138:8001/v1/crawler/update_ad/${adId}`;
+    const url = `http://127.0.0.1:8000/v1/crawler/update_ad/${adId}`;
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
     // Create a new XMLHttpRequest object
