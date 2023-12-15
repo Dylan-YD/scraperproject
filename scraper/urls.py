@@ -29,7 +29,7 @@ urlpatterns = [
     path('v1/scraper', views.Ad_modelList.as_view()),
     path('v1/scraper/csv', views.Ad_modelList.as_view()),
     path ('v1/scraper/query/<str:query>', views.Ad_queryOne.as_view())
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

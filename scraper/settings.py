@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'crawler',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -127,14 +128,14 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 import os
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = BASE_DIR
-MEDIA_URL = '/media/'
+# MEDIA_ROOT = BASE_DIR
+# MEDIA_URL = '/media/'
 
 
 # CORS_ORIGIN_WHITELIST = [
@@ -165,3 +166,15 @@ MEDIA_URL = '/media/'
 # ]
 
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
+
+AWS_ACCESS_KEY_ID = 'AKIAYJQQTAXTPHAGYG5U'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'ads-scrap'
+AWS_S3_REGION_NAME = 'us-east-1'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_DEFAULT_ACL = 'public-read'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
