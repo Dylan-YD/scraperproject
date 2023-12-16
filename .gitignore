@@ -1,3 +1,7 @@
 __pycache__
 venv
 .vscode
+.env
+.env.js
+.env.json
+.env-cmdrc
