@@ -21,7 +21,7 @@ DJANGO_SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['54.165.98.164']
 
 
 # Application definition
