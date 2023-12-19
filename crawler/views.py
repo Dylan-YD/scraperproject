@@ -6,7 +6,9 @@ from .serializer import Ad_modelSerializer
 from crawler.system.adscraper import geotagging
 from crawler.system.webcontent import url_content_scraper
 from crawler.ResponseHelper.response import ResponseHelper
-
+import os
+import dotenv 
+baseURL = os.getenv('LOCAL_URL')
 class Ad_modelList(APIView):
     def post(self, request):
         print("getting data")
@@ -156,6 +158,6 @@ class single_ad_info(APIView):
             ad = Ad_model.objects.get(ad_id=ad_id)
             serializer = Ad_modelSerializer(ad)
             print(serializer.data)
-            return render(request, 'ad_info.html', {"ad_info":serializer.data})
+            return render(request, 'ad_info.html', {"ad_info":serializer.data, "baseURl":baseURL})
         except Exception as e:
             return ResponseHelper.get_internal_server_error_response(str(e))

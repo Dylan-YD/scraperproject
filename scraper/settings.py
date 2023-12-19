@@ -12,20 +12,19 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
+import dotenv
 
-load_dotenv()
-
+dotenv.load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-DEBUG = os.getenv('DJANGO_DEBUG', 'True') != 'False'
+DEBUG = os.getenv('DEBUG')
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+ALLOWED_HOSTS = [os.getenv('LOCAL_URL'),]
 
-ALLOWED_HOSTS = ['54.165.98.164','127.0.0.1']
 
 
 # Application definition

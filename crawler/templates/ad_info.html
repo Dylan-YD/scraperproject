@@ -427,8 +427,9 @@ function saveChanges() {
   };
 
   // Make the AJAX request
+  const url = "{{baseURL}}"
   $.ajax({
-    url: 'http://54.165.98.164:8000/v1/crawler/update_ad/' + adId,
+    url: url + '/v1/crawler/update_ad/' + adId,
     type: 'PUT',
     data: JSON.stringify(data),
     contentType: 'application/json',
