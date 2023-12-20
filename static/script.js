@@ -1,58 +1,58 @@
 // Load the number of ads from the API
 
-fetch("http://54.205.89.138:8001/v1/scraper/number_of_ads")
-.then(response => response.json())
-.then(data => {
-  // Update the HTML with the retrieved data
-  const adCountElement = document.getElementById("adCount");
-  adCountElement.textContent = data.data;
-})
-.catch(error => {
-  console.error("Error fetching ad count:", error);
-});
+fetch(baseURL + "/v1/scraper/number_of_ads")
+  .then(response => response.json())
+  .then(data => {
+    // Update the HTML with the retrieved data
+    const adCountElement = document.getElementById("adCount");
+    adCountElement.textContent = data.data;
+  })
+  .catch(error => {
+    console.error("Error fetching ad count:", error);
+  });
 
 
 // v1/scraper/ad_queries_count'
-fetch("http://54.205.89.138:8001/v1/scraper/ad_queries_count")
-.then(response => response.json())
-.then(data => {
-  // Update the HTML with the retrieved data
-  const adCountElement = document.getElementById("queryCount");
-  adCountElement.textContent = data.data;
-})
-.catch(error => {
-  console.error("Error fetching ad count:", error);
-});
+fetch(baseURL + "/v1/scraper/ad_queries_count")
+  .then(response => response.json())
+  .then(data => {
+    // Update the HTML with the retrieved data
+    const adCountElement = document.getElementById("queryCount");
+    adCountElement.textContent = data.data;
+  })
+  .catch(error => {
+    console.error("Error fetching ad count:", error);
+  });
 
 
 // send a post request to the API when the query form is submitted
 const form = document.getElementById("searchForm");
 form.addEventListener("submit", event => {
-    event.preventDefault();
-    const formData = new FormData(form);
-    const query = formData.get("query");
-    const url = `http://54.205.89.138:8001/v1/scraper/${query}`;
-    fetch(url, { method: "POST" })
+  event.preventDefault();
+  const formData = new FormData(form);
+  const query = formData.get("query");
+  const url = `${baseURL}/v1/scraper/${query}`;
+  fetch(url, { method: "POST" })
     .then(response => response.json())
     .then(data => {
-        // Update the HTML with the retrieved data
-        const queryCountElement = document.getElementById("queryCount");
-        queryCountElement.textContent = data.data;
+      // Update the HTML with the retrieved data
+      const queryCountElement = document.getElementById("queryCount");
+      queryCountElement.textContent = data.data;
     })
     .catch(error => {
-        console.error("Error fetching query count:", error);
+      console.error("Error fetching query count:", error);
     });
-    }
+}
 );
 
-document.getElementById('searchForm').addEventListener('submit', function(e) {
+document.getElementById('searchForm').addEventListener('submit', function (e) {
   e.preventDefault(); // Prevent the form from submitting normally
 
   var form = e.target;
   var csrfToken = form.querySelector('input[name="csrfmiddlewaretoken"]').value;
   var query = form.querySelector('#queryInput').value;
 
-  fetch('http://54.205.89.138:8001/v1/scraper/', {
+  fetch(baseURL + '/v1/scraper/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -60,25 +60,25 @@ document.getElementById('searchForm').addEventListener('submit', function(e) {
     },
     body: JSON.stringify({ query: query })
   })
-  .then(response => {
-    // Handle the response
-  })
-  .catch(error => {
-    // Handle errors
-  });
+    .then(response => {
+      // Handle the response
+    })
+    .catch(error => {
+      // Handle errors
+    });
 });
 
 //getting all the ads
-  // Fetch data from local54.205.89.138host:8001/v1/scraper
-  fetch('http://54.205.89.138:8001/v1/scraper')
-    .then(response => response.json())
-    .then(data => {
-      if (data.status === 200) {
-        const tableBody = document.getElementById('data-placeholder');
-        let tableHTML = '';
+// Fetch data from local54.205.89.138host:8001/v1/scraper
+fetch(baseURL + '/v1/scraper')
+  .then(response => response.json())
+  .then(data => {
+    if (data.status === 200) {
+      const tableBody = document.getElementById('data-placeholder');
+      let tableHTML = '';
 
-        data.data.forEach(item => {
-          tableHTML += `
+      data.data.forEach(item => {
+        tableHTML += `
             <tr>
               <td>
                 <label class="users-table__checkbox">
@@ -110,11 +110,11 @@ document.getElementById('searchForm').addEventListener('submit', function(e) {
               </td>
             </tr>
           `;
-        });
+      });
 
-        tableBody.innerHTML = tableHTML;
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+      tableBody.innerHTML = tableHTML;
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });

@@ -40,7 +40,7 @@ function createBarChart(data) {
   }
 
   // Make the GET request to the specified route
-  fetch("http://54.205.89.138:8001/v1/scraper") // Update the URL with the appropriate protocol (http/https)
+  fetch(`${baseURL}/v1/scraper`) // Update the URL with the appropriate protocol (http/https)
     .then(response => response.json())
     .then(data => {
       createBarChart(data);
@@ -52,7 +52,7 @@ function createBarChart(data) {
 
 
 // Fetch data from URL
-fetch('http://54.205.89.138:8001/v1/scraper')
+fetch(`${baseURL}/v1/scraper`)
 .then(response => response.json())
 .then(data => {
   // Check if the data has the expected structure

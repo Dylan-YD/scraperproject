@@ -1,7 +1,7 @@
 $(document).ready(function() {
     // Perform AJAX request to fetch the dynamic data
     $.ajax({
-      url: 'http://54.205.89.138:8001/v1/scraper/number_of_ads',
+      url: `${baseURL}/v1/scraper/number_of_ads`,
       type: 'GET',
       success: function(response) {
         var numberOfAds = response.data;
@@ -17,7 +17,7 @@ $(document).ready(function() {
   $(document).ready(function() {
     // Perform AJAX request to fetch the dynamic data
     $.ajax({
-      url: 'http://54.205.89.138:8001/v1/scraper/ad_queries_count',
+      url: `${baseURL}/v1/scraper/ad_queries_count`,
       type: 'GET',
       success: function(response) {
         var numberOfAds = response.data;
@@ -36,7 +36,7 @@ $(document).ready(function() {
    function fetchData() {
     // Make an AJAX request
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://54.205.89.138:8001/v1/scraper", true);
+    xhr.open("GET", `${baseURL}/v1/scraper`, true);
 
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4 && xhr.status === 200) {
@@ -109,7 +109,7 @@ function populateTable(data) {
     var actionsCell = document.createElement("td");
     actionsCell.className = "project-actions text-right";
     actionsCell.innerHTML = `
-    <a class="btn btn-info btn-sm" href="http://54.205.89.138:8001/crawler/${project.ad_id}">
+    <a class="btn btn-info btn-sm" href='${baseURL}/crawler/${project.ad_id}'>
     <i class="fas fa-pencil-alt"></i>
     Edit
   </a>
@@ -157,7 +157,7 @@ function populateTable(data) {
   function deleteAd(adId, row) {
     // Send a DELETE request to the server
     var csrfToken = getCookie("csrftoken");
-    fetch(`http://54.205.89.138:8001/v1/crawler/delete_ad/${adId}`, {
+    fetch(`${baseURL}/v1/crawler/delete_ad/${adId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
