@@ -7,7 +7,10 @@ This application is a Django project which is a ad scraper.
 2. Install Python on your machine.
 3. Navigate to the project folder. `cd scraper`
 4. Install requirements. `pip install -r requirements.txt`
+5. Create .env file
+6. Put your secret key, domain, aws information in .env file like .env.example
 5. Run the server. `python manage.py runserver`
+
 
 ## Usage
 1. Go to the home page. `http://127.0.0.1:8000/`
