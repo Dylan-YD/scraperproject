@@ -7,6 +7,5 @@ env/
 .env.json
 .env-cmdrc
 *.env
-*.env.example
 *.env.local
 *.env.staging
