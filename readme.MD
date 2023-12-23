@@ -6,8 +6,14 @@ This application is a Django project which is a ad scraper.
 1. Clone the repository. `git clone https://github.com/Dylan-YD/scraper.git`
 2. Install Python on your machine.
 3. Navigate to the project folder. `cd scraper`
+4. Create virtual environment. `python -m venv {environment name}`
+5. Activate environment. `cd {enviroment name}/Scripts activate or source bin/activate`
 4. Install requirements. `pip install -r requirements.txt`
-5. Run the server. `python manage.py runserver`
+5. Create .env file
+6. Put your secret key, allowed host url, aws information in .env file like .env.example
+7. Change baseURL variable in `\crawler\static\settings.js` if you want run project on custom url
+8. Run the server. `python manage.py runserver`
+
 
 ## Usage
 1. Go to the home page. `http://127.0.0.1:8000/`
