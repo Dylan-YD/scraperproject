@@ -84,7 +84,7 @@ def scrape_google_ads(query, max_ads=4):
     options.add_argument("--headless") 
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    service = Service("/opt/homebrew/bin/chromedriver")
+    service = Service(settings.CHROME_DRIVER_PATH)
     scraper = webdriver.Chrome(service=service, options=options)
     scraper.set_window_size(2048, 1080)
 
@@ -209,7 +209,7 @@ def geotagging(query):
     option.add_argument("--headless")
     option.add_argument("--no-sandbox")
     option.add_argument("--disable-dev-shm-usage")
-    service = Service("/opt/homebrew/bin/chromedriver")
+    service = Service(settings.CHROME_DRIVER_PATH)
     scraper = webdriver.Chrome(service=service, options=option)
     
     scraper.set_window_size(2048, 1080)
