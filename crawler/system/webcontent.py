@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from crawler.system.adscraper import scrape_google_ads, save_ads_to_csv
+from django.conf import settings
 
 def whois_lookup (url):
     print("started whois lookup crawling...")
@@ -11,7 +12,7 @@ def whois_lookup (url):
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    service = Service("path/to/chromedriver")
+    service = Service(settings.CHROME_DRIVER_PATH)
     scraper = webdriver.Chrome(service=service, options=options)
     scraper.set_window_size(2048, 1080)
     try:
@@ -41,7 +42,7 @@ def facebook_crawler(url):
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    service = Service("path/to/chromedriver")
+    service = Service(settings.CHROME_DRIVER_PATH)
     scraper = webdriver.Chrome(service=service, options=options)
     scraper.set_window_size(2048, 1080)
     try:

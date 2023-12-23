@@ -24,6 +24,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 ALLOWED_HOSTS = [os.getenv('LOCAL_URL'),]
+CHROME_DRIVER_PATH = os.getenv('CHROME_DRIVER_PATH')
 
 
 # Application definition
@@ -167,11 +168,12 @@ MEDIA_URL = '/media/'
 
 
 
-
-AWS_STORAGE_BUCKET_NAME = 'ads-scrap'
-AWS_S3_REGION_NAME = 'us-east-1'
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-AWS_DEFAULT_ACL = 'public-read'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
 # use below settings in production 
 # DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

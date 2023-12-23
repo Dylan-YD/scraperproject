@@ -76,14 +76,26 @@
         }
     </style>
     <script>
+        function getCSRFToken() {
+    const csrfCookie = document.cookie.split('; ').find(cookie => cookie.startsWith('csrftoken='));
+    if (csrfCookie) {
+        return csrfCookie.split('=')[1];
+    }
+    return null;
+}
         function sendPostRequest() {
             const button = document.querySelector('.button');
             button.disabled = true; // Disable the button during the process
             button.innerHTML = '<span class="loader"></span> Scraping...';
 
-            fetch(CONFIG_URL + '/v1/scraper/csv', {
-                method: 'POST'
-            })
+            fetch('/v1/scraper/csv', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCSRFToken(), // Include the CSRF token in the headers
+    },
+    // Other fetch options (e.g., body) can be added here
+})
                 .then(response => {
                     button.disabled = false; // Re-enable the button after the process
 
