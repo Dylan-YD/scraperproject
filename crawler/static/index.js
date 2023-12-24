@@ -109,7 +109,7 @@ function populateTable(data) {
     var actionsCell = document.createElement("td");
     actionsCell.className = "project-actions text-right";
     actionsCell.innerHTML = `
-    <a class="btn btn-info btn-sm" href='${baseURL}/crawler/${project.ad_id}'>
+    <a class="btn btn-info btn-sm" href='${baseURL}/home/crawler/${project.ad_id}'>
     <i class="fas fa-pencil-alt"></i>
     Edit
   </a>
@@ -157,7 +157,7 @@ function populateTable(data) {
   function deleteAd(adId, row) {
     // Send a DELETE request to the server
     var csrfToken = getCookie("csrftoken");
-    fetch(`${baseURL}/v1/crawler/delete_ad/${adId}`, {
+    fetch(`${baseURL}/v1/home/crawler/delete_ad/${adId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

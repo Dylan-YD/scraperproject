@@ -429,7 +429,7 @@ function saveChanges() {
   // Make the AJAX request
   const url = "{{baseURL}}"
   $.ajax({
-    url: url + '/v1/crawler/update_ad/' + adId,
+    url: url + '/v1/home/crawler/update_ad/' + adId,
     type: 'PUT',
     data: JSON.stringify(data),
     contentType: 'application/json',
