@@ -28,8 +28,6 @@ def login_user(request):
 
 
 def register_page(request):
-    if request.user.is_authenticated:
-        return redirect('/')
     register_page = RegisterForm(request.POST or None)
     if register_page.is_valid():
         user_name = register_page.cleaned_data.get("user_name")
@@ -76,5 +74,3 @@ def edit_user_profile(request):
     return render(request, 'account/edit_account.html', context)
 
 
-def user_sidebar(request):
-    return render(request, 'account/user_sidebar.html', {})
