@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+{% block content %}
+<div class="container">
+    <section id="form"><!--form-->
+        <div class="row">
+            <div class="login-form" style="text-align: -webkit-center "><!--login form-->
+                <h2>Login To Your Account</h2>
+                <form method="post" action="#">
+                    {% csrf_token %}
+                    <p>{{ login_form.user_name.label }}{{ login_form.user_name }}</p>
+                    {% for error in login_form.user_name.errors %}
+                        <span style="color:red">{{ error }}</span>
+                    {% endfor %}
+
+                    <p>{{ login_form.password.label }} {{ login_form.password }}</p>
+
+                    {% for error in login_form.password.errors %}
+                        <span style="color:red">{{ error }}</span>
+                    {% endfor %}
+                    <br>
+                    <button type="submit" class="btn btn-success">login</button>
+                </form>
+            <!-- <a class="btn" href="auth/register">sign-up</a> -->
+            </div><!--/login form-->
+        </div>
+    </section>
+</div>
+</body>
+{% endblock %}
+</html>

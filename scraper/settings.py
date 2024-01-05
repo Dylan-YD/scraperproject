@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'crawler',
     'storages',
+    'auth_app',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +137,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = BASE_DIR
 MEDIA_URL = '/media/'
 
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # CORS_ORIGIN_WHITELIST = [
 #     'http://54.205.89.138/',

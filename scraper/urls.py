@@ -21,14 +21,17 @@ from rest_framework import permissions
 from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import render
-
+from auth_app.views import login_user
 
 urlpatterns = [
-    path("", include('crawler.urls')),
+    path("home/", include('crawler.urls')),
     path('admin/', admin.site.urls),
     path('v1/scraper', views.Ad_modelList.as_view()),
     path('v1/scraper/csv', views.Ad_modelList.as_view()),
-    path ('v1/scraper/query/<str:query>', views.Ad_queryOne.as_view())]
+    path ('v1/scraper/query/<str:query>', views.Ad_queryOne.as_view()),
+    path('', login_user),
+    path('auth/', include('auth_app.urls')),
+]
 # ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

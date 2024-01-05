@@ -1,0 +1,46 @@
+<title>Sign-up</title>
+{% block content %}
+   <div class="container">
+		<section id="form"><!--form-->
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="signup-form " style="text-align: -webkit-center "><!--sign up form-->
+						<h2>sign-up</h2>
+						<form method="post">
+							{% csrf_token %}
+                            <!-- UserName -->
+                           {{ register_form.user_name }}
+
+                            {% for error in register_form.user_name.errors %}
+                                <span style="color:red">{{ error }}</span>
+                            {% endfor %}
+                            <!-- End UserName -->
+                             <!-- Email -->
+                            <p>{{ register_form.email.label }}{{ register_form.email }}</p>
+
+                            {% for error in register_form.email.errors %}
+                                <span style="color:red">{{ error }}</span>
+                            {% endfor %}
+                            <!-- End Email -->
+                            <!-- Password -->
+                             {{ register_form.password }}
+
+                            {% for error in register_form.password.errors %}
+                                <span style="color:red">{{ error }}</span>
+                            {% endfor %}
+                            <!-- End Password -->
+                            <!-- RePassword -->
+                            <p>{{ register_form.re_password.label }} {{ register_form.re_password }}</p>
+                            {% for error in register_form.re_password.errors %}
+                                <span style="color:red">{{ error }}</span>
+                            {% endfor %}
+                            <br>
+                            <!-- End RePassword -->
+							<button type="submit" class="btn btn-success">register</button>
+						</form>
+					</div><!--/sign up form-->
+				</div>
+			</div>
+		</section>
+	</div>
+{% endblock %}

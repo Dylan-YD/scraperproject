@@ -16,7 +16,7 @@ This application is a Django project which is a ad scraper.
 
 
 ## Usage
-1. Go to the home page. `http://127.0.0.1:8000/`
+1. Go to the home page. `http://127.0.0.1:8000/home`
 2. Enter the query of the ads you want to scrape.
 3. Click the button to scrape the website.
 4. The progress will be shown on the page.

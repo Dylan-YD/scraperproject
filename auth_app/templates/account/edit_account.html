@@ -1,0 +1,42 @@
+{% load render_partial %}
+
+{% block content %}
+
+    <!-- bradcam_area_start -->
+    <div class="bradcam_area breadcam_bg_2">
+        <h3>sign-up page</h3>
+    </div>
+    <!-- bradcam_area_end -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 pull-left">
+                <div class="contact-form">
+                    <div class="status alert alert-success" style="display: none"></div>
+                    <form id="main-contact-form" class="contact-form row" name="contact-form" method="post"
+                          action="">
+                        {% csrf_token %}
+                        <div class="form-group col-md-12">
+                            {{ edit_form.first_name }}
+                            {% for error in edit_form.first_name.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group col-md-12">
+                            {{ edit_form.last_name }}
+                            {% for error in edit_form.last_name.errors %}
+                                <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+
+                        <div class="form-group col-md-12">
+                            <input type="submit" name="submit" class="btn btn-primary pull-right" value="send">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
